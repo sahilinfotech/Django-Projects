@@ -1,0 +1,266 @@
+{% extends 'Admin_base.html' %} 
+{% load static %} 
+{% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Patient Medicine Details Form</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="{% url 'dashboardPage' %}" class="text-muted text-hover-primary">Admin Side</a>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Medicine</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Add Patient Medicine Details</li>
+						<!--end::Item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			{% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+			<!--begin::Content container-->	
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Form-->
+				<form action="{% url 'patienthistoryAddPage' %}" enctype="multipart/form-data" method="post" data-parsley-validate novalidate class="form d-flex flex-column flex-lg-row">{% csrf_token %}	
+					
+					<!--begin::Main column-->
+					<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+						<!--begin::Tab content-->
+						<div class="tab-content">
+							<!--begin::Tab pane-->
+							<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+								<div class="d-flex flex-column gap-7 gap-lg-10">
+									<!--begin::Add Patient Medicine Details options-->
+									<div class="card card-flush py-4">
+										<!--begin::Card header-->
+										<div class="card-header">
+											<div class="card-title">
+												<h2>Patient Medicine Details Information</h2>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Card body-->
+										<div class="card-body pt-0">
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patienthistoryName" class="required form-label">Patient Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patienthistoryName" name="patienthistoryName" class="form-control mb-2" placeholder="Patient Name" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<span class="errormsgtitle" style="color:red"></span>
+												<div class="text-muted fs-7">A Patient Name is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patienthistoryMobileNo" class="required form-label">Patient Mobile Number</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patienthistoryMobileNo" name="patienthistoryMobileNo" class="form-control mb-2" placeholder="Patient Mobile Number" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<span class="errormsgtitle" style="color:red"></span>
+												<div class="text-muted fs-7">A Patient Mobile Number is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+
+											<!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">Patient Diseases Description</label>
+                                                <!--end::Label-->
+                                                <!--begin::Editor-->
+												<textarea name="patienthistoryDiseasesDescription" id="patienthistoryDiseasesDescription" class="form-control min-h-200px mb-2" placeholder="Patient Diseases Description" value=""></textarea>
+                                                <span class="errormsgdesc" style="color:red"></span>
+												<div class="text-muted fs-7">A Patient Diseases Description is required </div>
+												<!--end::Editor-->
+                                            </div>
+                                            <!--end::Input group-->
+
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patienthistoryDoctorName" class="required form-label">Doctor Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patienthistoryDoctorName" name="patienthistoryDoctorName" class="form-control mb-2" placeholder="Doctor Name" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<span class="errormsgtitle" style="color:red"></span>
+												<div class="text-muted fs-7">A Doctor Name is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="medicineModel" class="required form-label">Medicine Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<select class="form-select mb-2 medicineModel" name="medicineModel[]" id="medicineModel" data-control="select2" data-hide-search="" multiple>
+													{% for medicine in medicine_view %}
+													<option value="{{ medicine.medicine_id }}" data-price="{{ medicine.medicine_price }}" data-quantity="{{ medicine.medicine_quantity }}">{{ medicine.medicine_name }}</option>
+													{% endfor %}
+												</select>
+												<!--end::Input-->
+												<span class="errormsgdesc" style="color:red"></span>
+												<div class="text-muted fs-7">Please select one or more medicines</div>
+											</div>
+											<!--end::Input group-->
+
+											<div class="medicine-details"></div>
+											
+											<!-- Total Bill Price Display -->
+											<div class="text-end mt-5">
+												<label class="form-label fw-bold">Total Bill Price:</label>
+												<span class="form-control mb-2" id="totalBillPrice" >0</span>
+											</div>
+										</div>
+										<!--end::Card header-->
+									</div>
+									<!--end::Contact Us options-->
+								</div>
+							</div>
+							<!--end::Tab pane-->
+							
+						</div>
+						<!--end::Tab content-->
+						<div class="d-flex justify-content-end">
+							<!--begin::Button-->
+							<a href="{% url 'patienthistoryViewPage' %}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+							<a href="{% url 'patienthistoryViewPage' %}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">View</a>
+							<!--end::Button-->
+							<!--begin::Button-->
+							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+								<span class="indicator-label">Save</span>
+								<span class="indicator-progress">Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+							</button>
+							<!--end::Button-->
+						</div>
+					</div>
+					<!--end::Main column-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end::Main-->
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$('#medicineModel').select2(); // Initialize select2 for multi-select
+		
+		function updateMedicineDetails(selectedMedicines) {
+			$('.medicine-details').empty();
+			var totalBillPrice = 0; // Initialize total bill price
+			selectedMedicines.forEach(function(medicineId) {
+				var medicineOption = $('#medicineModel option[value="' + medicineId + '"]');
+				var medicineName = medicineOption.text();
+				var medicinePrice = parseFloat(medicineOption.data('price')) || 0;
+				var medicineQuantity = parseInt(medicineOption.data('quantity')) || 0;
+				
+				var medicineDetailsHtml = `
+					<div class="card card-flush py-4">
+						<div class="card-header">
+							<div class="card-title">
+								<h2>${medicineName} Details</h2>
+							</div>
+						</div>
+						<div class="card-body pt-0">
+							<div class="mb-10 fv-row">
+								<label class="required form-label">Quantity for ${medicineName}</label>
+								<input type="number" id="patienthistoryQuantity_${medicineId}" name="patienthistoryQuantity_${medicineId}" class="form-control mb-2 medicine-quantity" data-medicine-id="${medicineId}" placeholder="Patient Medicine Quantity" min="1" max="${medicineQuantity}" required/>
+							</div>
+							<div class="mb-10 fv-row">
+								<label class="required form-label">Total Price for ${medicineName}</label>
+								<input type="text" id="patienthistoryPrice_${medicineId}" name="patienthistoryPrice_${medicineId}" class="form-control mb-2 medicine-total-price" data-medicine-id="${medicineId}" placeholder="Total Price" readonly/>
+							</div>
+							<div class="mb-10 fv-row">
+								<label class="required form-label">Remaining Quantity for ${medicineName}</label>
+								<input type="text" id="patienthistoryRemaining_${medicineId}" name="patienthistoryRemaining_${medicineId}" class="form-control mb-2 medicine-remaining-quantity" data-medicine-id="${medicineId}" placeholder="Remaining Quantity" readonly/>
+							</div>
+						</div>
+					</div>
+				`;
+				$('.medicine-details').append(medicineDetailsHtml);
+				totalBillPrice += medicinePrice; // Update total bill price
+			});
+			$('#totalBillPrice').text(totalBillPrice.toFixed(2)); // Display total bill price
+		}
+	
+		$('#medicineModel').on('change', function() {
+			var selectedMedicines = $(this).val();
+			updateMedicineDetails(selectedMedicines);
+		});
+	
+		$(document).on('input', '.medicine-quantity', function() {
+			var medicineId = $(this).data('medicine-id');
+			var quantity = parseInt($(this).val()) || 0;
+			var medicineOption = $('#medicineModel option[value="' + medicineId + '"]');
+			var medicinePrice = parseFloat(medicineOption.data('price')) || 0;
+			var medicineQuantity = parseInt(medicineOption.data('quantity')) || 0;
+			var remainingQuantity = medicineQuantity - quantity;
+			var totalPrice = quantity * medicinePrice;
+			$('#patienthistoryPrice_'+medicineId).val(totalPrice.toFixed(2));
+			$('#patienthistoryRemaining_'+medicineId).val(remainingQuantity);
+			
+			// Update total bill price
+			var totalBillPrice = 0;
+			$('.medicine-total-price').each(function() {
+				totalBillPrice += parseFloat($(this).val()) || 0;
+			});
+			$('#totalBillPrice').text(totalBillPrice.toFixed(2));
+		});
+	});
+</script>
+
+{% endblock %}

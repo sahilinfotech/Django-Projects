@@ -1,0 +1,524 @@
+{% extends 'Admin_Base.html' %} 
+{% load static %} {% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Edit Money Management Details Form</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Admin Side</a>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Pacific Homes</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Edit Money Management Details</li>
+						<!--end::Item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+				
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			{% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Form-->
+				<form id="myMoneyManagementForm" action="{% url "moneyManagementEditPage" %}" enctype="multipart/form-data" method="post" data-parsley-validate
+				novalidate  class="form d-flex flex-column flex-lg-row" >{% csrf_token %}
+				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+					<!--begin::Slider settings-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<h2>Transation Image </h2>
+							</div>
+							<!--end::Card title-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body text-center pt-0">
+							<!--begin::Image input-->
+							<!--begin::Image input placeholder-->
+							<style>.image-input-placeholder { background-image: url("{{proof_img}}"); } [data-bs-theme="dark"] .image-input-placeholder { background-image: url("{{proof_img}}"); }</style>
+							<!--end::Image input placeholder-->
+							<div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+								<!--begin::Preview existing avatar-->
+								<div class="image-input-wrapper w-150px h-150px"></div>
+								<!--end::Preview existing avatar-->
+								<!--begin::Label-->
+								<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Edit Image">
+									<i class="bi bi-pencil-fill fs-7"></i>
+									<!--begin::Inputs-->
+									<input type="file" name="moneyManagementTransitionProof" accept=".png, .jpg, .jpeg" />
+									<input type="hidden" name="avatar_remove" />
+									<!--end::Inputs-->
+								</label>
+								<!--end::Label-->
+								<!--begin::Cancel-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel Image">
+									<i class="bi bi-x fs-2"></i>
+								</span>
+								<!--end::Cancel-->
+								<!--begin::Remove-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove Image">
+									<i class="bi bi-x fs-2"></i>
+								</span>
+								<!--end::Remove-->
+							</div>
+							<!--end::Image input-->
+							<!--begin::Description-->
+							<div class="text-muted fs-7">Set the Transation image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+							<!--end::Description-->
+						</div>
+						<!--end::Card body-->
+					</div>
+					
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+							<div class="card-header">
+								<!--begin::Card title-->
+								<div class="card-title">
+									<h2> Cheque Image </h2>
+								</div>
+								<!--end::Card title-->
+							</div>
+							<!--end::Card header-->
+							<!--begin::Card body-->
+							<div class="card-body text-center pt-0">
+								<!--begin::Image input-->
+								<!--begin::Image input placeholder-->
+								<style>.image-input-placeholder1 { background-image: url("{{cheque_img}}"); } [data-bs-theme="dark"] .image-input-placeholder1 { background-image: url("{{cheque_img}}"); }</style>
+								<!--end::Image input placeholder-->
+								<div class="image-input image-input-empty image-input-outline image-input-placeholder1 mb-3" data-kt-image-input="true">
+									<!--begin::Preview existing avatar-->
+									<div class="image-input-wrapper w-150px h-150px"></div>
+									<!--end::Preview existing avatar-->
+									<!--begin::Label-->
+									<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Edit Image">
+										<i class="bi bi-pencil-fill fs-7"></i>
+										<!--begin::Inputs-->
+										<input type="file" name="moneyManagementChequePhoto" accept=".png, .jpg, .jpeg" />
+										<input type="hidden" name="avatar_remove" />
+										<!--end::Inputs-->
+									</label>
+									<!--end::Label-->
+									<!--begin::Cancel-->
+									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel Image">
+										<i class="bi bi-x fs-2"></i>
+									</span>
+									<!--end::Cancel-->
+									<!--begin::Remove-->
+									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove Image">
+										<i class="bi bi-x fs-2"></i>
+									</span>
+									<!--end::Remove-->
+								</div>
+								<!--end::Image input-->
+								<!--begin::Description-->
+								<div class="text-muted fs-7">Set the Cheque image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+								<!--end::Description-->
+							</div>
+							<!--end::Card body-->
+					</div>
+						<!--end::Slider settings-->
+				</div>
+				<!--end::Aside column-->	
+					
+					<!--begin::Main column-->
+					<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+						<!--begin::Tab content-->
+						<div class="tab-content">
+							<!--begin::Tab pane-->
+							<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+								<div class="d-flex flex-column gap-7 gap-lg-10">
+									<!--begin::Edit Money Management Details options-->
+									<div class="card card-flush py-4">
+										<!--begin::Card header-->
+										<div class="card-header">
+											<div class="card-title">
+												<h2>Edit Money Management Details Information</h2>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Card body-->
+										<div class="card-body pt-0">
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementBangalowNo" class="required form-label">Bangalow No.</label>
+												<!--end::Label-->
+												<select class="form-select mb-2" name="moneyManagementBangalowNo"
+                                                    data-control="select2" data-hide-search=""
+                                                    data-placeholder="Select an option">
+                                                   
+                                                    {% for clientBangalowno in client_details %}
+                                                    {% if clientBangalowno.client_id == moneyManagement_featch.client_id %}
+                                                    <option value="{{ clientBangalowno.client_bangalow_no }}" selected>
+
+                                                        {{ clientBangalowno.client_bangalow_no }}</option>
+                                                    {% else %}
+                                                    <option value="{{ clientBangalowno.client_bangalow_no }}">
+
+                                                        {{ clientBangalowno.client_bangalow_no }}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+												<!--end::Input-->
+											</div>
+											<!--end::Input group-->
+											
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementPhoneNo" class="required form-label">Client Phone No.</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementPhoneNo" name="moneyManagementPhoneNo" class="form-control mb-2" placeholder="Client Phone No." value="{{ moneyManagement_featch.moneyManagement_phone_no }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Client Phone No. is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementTotalAmount" class="required form-label">Total Amount</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementTotalAmount" name="moneyManagementTotalAmount" class="form-control mb-2" placeholder="Total Amount" value="{{ moneyManagement_featch.moneyManagement_total_amount }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Total Amount is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementTokenAmount" class="required form-label">Token Amount</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementTokenAmount" name="moneyManagementTokenAmount" class="form-control mb-2" placeholder="Token Amount" value="{{ moneyManagement_featch.moneyManagement_token_amount }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Token Amount is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementTotalRemainingAmount" class="required form-label">Total Remaining Amount</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementTotalRemainingAmount" name="moneyManagementTotalRemainingAmount" oninput="calculateRemainingPrice()" class="form-control mb-2" placeholder="Total Remaining Amount" value="{{ moneyManagement_featch.moneyManagement_total_remaining_amount }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Total Remaining Amount is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementAmountMode" class="required form-label">Payment Mode</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<select class="form-select mb-2" name="moneyManagementAmountMode" id="moneyManagementAmountMode" data-control="select2" data-hide-search="true" data-placeholder="Select A Payment Mode" >
+													
+													<option value="{{ moneyManagement_featch.moneyManagement_amount_mode }}">{{ moneyManagement_featch.moneyManagement_amount_mode }}</option>
+													<option value="Installment">Installment</option>
+													<option value="loan">Loan</option>
+												</select>
+												<!--begin::Description-->
+												<div class="text-muted fs-7">Select The Payment Mode. </div>
+												<!--end::Description-->
+												<!--end::Input-->
+												
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementTransition" class="required form-label">Amount Transation</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<select class="form-select mb-2" name="moneyManagementTransition" id="moneyManagementTransition" data-control="select2" data-hide-search="true" data-placeholder="Select An Amount Transation" >
+													<option value="{{ moneyManagement_featch.moneyManagement_transition }}">{{ moneyManagement_featch.moneyManagement_transition }}</option>
+													<option value="cash">Cash</option>
+													<option value="cheque">Cheque</option>
+													<option value="RTGS">RTGS</option>
+												</select>
+												<!--begin::Description-->
+												<div class="text-muted fs-7">Select The Amount Transation. </div>
+												<!--end::Description-->
+												<!--end::Input-->
+												
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementInstallmentAmount" class="required form-label">Installment Amount</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementInstallmentAmount" name="moneyManagementInstallmentAmount" oninput="calculateRemainingPrice()" class="form-control mb-2" placeholder="Installment Amount" value="{{ moneyManagement_featch.moneyManagement_installment_amount }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Installment Amount is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementRemainingPayment" class="required form-label">Remaining Payment</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementRemainingPayment" name="moneyManagementRemainingPayment" class="form-control mb-2" placeholder="Remaining Payment" value="{{ moneyManagement_featch.moneyManagement_remaining_Payment }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Remaining Payment is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementDate" class="required form-label">Date</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementDate" name="moneyManagementDate" class="form-control mb-2" placeholder="31-12-2023" value="{{ moneyManagement_featch.moneyManagement_date }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A DD-MM-YYYY Format Date is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementBankName" class="required form-label">Bank Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementBankName" name="moneyManagementBankName" class="form-control mb-2" placeholder="Bank Name" value="{{ moneyManagement_featch.moneyManagement_bank_name }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Bank Name is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementBankBranch" class="required form-label">Bank Branch</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementBankBranch" name="moneyManagementBankBranch" class="form-control mb-2" placeholder="Bank Branch" value="{{ moneyManagement_featch.moneyManagement_bank_branch }}" />
+												<input type="text" id="moneyManagement_id" name="moneyManagement_id" class="form-control mb-2" placeholder="Bank Branch" value="{{ moneyManagement_featch.moneyManagement_id }}" hidden/>
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Bank Branch is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementIFSENo" class="required form-label">IFSE No</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementIFSENo" name="moneyManagementIFSENo" class="form-control mb-2" placeholder="IFSE No" value="{{ moneyManagement_featch.moneyManagement_IFSE_No }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A IFSE No is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementChequeNo" class="required form-label">Cheque No</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementChequeNo" name="moneyManagementChequeNo" class="form-control mb-2" placeholder="Cheque No" value="{{ moneyManagement_featch.moneyManagement_cheque_No }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Cheque No is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="moneyManagementAccountNo" class="required form-label">Cheque A/C No</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="moneyManagementAccountNo" name="moneyManagementAccountNo" class="form-control mb-2" placeholder="Cheque A/C No" value="{{ moneyManagement_featch.moneyManagement_Account_No }}" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Cheque A/C No is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											
+											<!--begin::Input group-->
+											<div class="row mb-0">
+												<!--begin::Label-->
+												<label
+													class="col-lg-4 col-form-label fw-semibold fs-6">Active
+													or Disactive
+												</label>
+												<!--begin::Label-->
+												<div class="col-lg-8 d-flex align-items-center">
+													{% if moneyManagement_featch.moneyManagement_is_active == "On" %}
+													<div class="form-check form-check-solid form-switch form-check-custom fv-row">
+														<input class="form-check-input w-45px h-30px" type="checkbox"
+														id="moneyManagementdisable" checked="checked" name="moneyManagementdisable" />
+														<label class="form-check-label" for="moneyManagementdisable">Active </label>
+													</div>
+													{% else %}
+													<div class="form-check form-check-solid form-switch form-check-custom fv-row">
+														<input class="form-check-input w-45px h-30px" type="checkbox"
+														id="moneyManagementdisable"  name="moneyManagementdisable"  />
+														<label class="form-check-label" for="moneyManagementdisable">Disactive</label>
+													</div>
+													{% endif %}
+												</div>
+												
+												<!--begin::Label-->
+											</div>
+											<!--end::Input group-->
+										</div>
+										<!--end::Card header-->
+									</div>
+									<!--end::Contact Us options-->
+									<table id="moneyManagementTable" class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>Amount Mode</th>
+												<th>Total Amount</th>
+												<th>Installment Amount</th>
+												<th>Transation Type</th>
+												<th>Remaining Payment</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody id="moneyManagementTableBody" >
+											
+											{% for Money in moneygetdata  %}
+											<tr>
+											<td>{{Money.moneyManagement_amount_mode}}
+											<td>{{Money.moneyManagement_total_amount}}</td>
+											<td>{{Money.moneyManagement_installment_amount}}</td>
+											<td>{{Money.moneyManagement_transition}}</td>
+											<td>{{Money.moneyManagement_remaining_Payment}}</td>
+											</tr>
+											<!-- Table rows will be dynamically added here -->
+											{% endfor %}
+										</tbody>
+									</table>
+									
+									
+								</div>
+							</div>
+							<!--end::Tab pane-->
+							
+						</div>
+						<!--end::Tab content-->
+						
+						<div class="d-flex justify-content-end">
+							<!--begin::Button-->
+							<a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+							<!--end::Button-->
+							<!--begin::Button-->
+							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+								<span class="indicator-label">Save Changes</span>
+								<span class="indicator-progress">Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+							</button>
+							<!--end::Button-->
+						</div>
+					</div>
+					<!--end::Main column-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end:::Main-->
+
+<script>
+	const editableDiv = document.getElementById('kt_ecommerce_add_product_description');
+	const hiddenInput = document.getElementById('input-hidden'); // A hidden input field to store the content
+	editableDiv.addEventListener('input', function () {
+		hiddenInput.value = editableDiv.innerText;
+	});
+</script>
+
+<script>
+    function calculateRemainingPrice() {
+        // Get values from input fields
+        var totalPriceInput = document.getElementById('moneyManagementTotalRemainingAmount');
+        var installmentPriceInput = document.getElementById('moneyManagementInstallmentAmount');
+
+        // Parse input values to floats or set to 0 if not valid numbers
+        var totalPrice = parseFloat(totalPriceInput.value) || 0;
+        var installmentPrice = parseFloat(installmentPriceInput.value) || 0;
+
+        // Validate input values
+        if (isNaN(totalPrice) || isNaN(installmentPrice)) {
+            // Handle invalid input (e.g., display an error message)
+            console.error('Invalid input. Please enter valid numbers.');
+            return;
+        }
+
+        // Calculate remaining price
+        var remainingPrice = totalPrice - installmentPrice;
+
+        // Update the remainingPrice field
+        document.getElementById('moneyManagementRemainingPayment').value = remainingPrice.toFixed();
+    }
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,296 @@
+{% extends 'Admin_base.html' %} 
+{% load static %} {% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Patient Medicine Details Form</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="{% url 'dashboardPage' %}" class="text-muted text-hover-primary">Admin Side</a>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Medicine</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Add Patient Medicine Details</li>
+						<!--end::Item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+				
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			{% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+			<!--begin::Content container-->	
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Form-->
+				<form action="" enctype="multipart/form-data" method="post" data-parsley-validate
+				novalidate  class="form d-flex flex-column flex-lg-row" >{% csrf_token %}	
+					
+					<!--begin::Main column-->
+					<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+						<!--begin::Tab content-->
+						<div class="tab-content">
+							<!--begin::Tab pane-->
+							<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+								<div class="d-flex flex-column gap-7 gap-lg-10">
+									<!--begin::Add Patient Medicine Details options-->
+									<div class="card card-flush py-4">
+										<!--begin::Card header-->
+										<div class="card-header">
+											<div class="card-title">
+												<h2>Patient Medicine Details Information</h2>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Card body-->
+										<div class="card-body pt-0">
+											<div class="mb-10 fv-row">
+												<label for="patientMedicineName" class="required form-label">Medicine Name</label>
+												<!--begin::Input-->
+												<input type="text" id="patientMedicineName" name="patientMedicineName" class="form-control mb-2" placeholder="Medicine Name" value="{{medicine_to_edit.patientmedicine_medicine_name}}" readonly/>
+												<!--end::Input-->
+											</div>
+											
+											<div class="mb-10 fv-row">
+												<label for="patientMedicineMg" class="required form-label">Medicine Mg</label>
+												<!--begin::Input-->
+												<input type="text" id="patientMedicineMg" name="patientMedicineMg" class="form-control mb-2" placeholder="Medicine Price" value="{{medicine_to_edit.patientmedicine_mg}}" readonly/>
+												<!--end::Input-->
+											</div>
+											
+											
+											<div class="mb-10 fv-row">
+												<label for="patientMedicinePrice" class="required form-label">Medicine Price</label>
+												<!--begin::Input-->
+												<input type="text" id="patientMedicinePrice" name="patientMedicinePrice" class="form-control mb-2" placeholder="Medicine Price" value="{{medicine_to_edit.patientmedicine_price}}" readonly/>
+												<input type="text" id="medicineModel" name="medicineModel" class="form-control mb-2" placeholder="Medicine" value="{{medicine_to_edit.medicine}}" hidden/>
+												
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Patient Medicine First Name is required and recommended to be unique.</div>
+												<!--end::Description-->
+											</div>
+											
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="medicineQuantity" class="required form-label">Medicine Quantity</label>
+												<!--end::Label-->
+												<!--begin::Input-->										
+												<input type="text" id="medicineQuantity" name="medicineQuantity" class="form-control mb-2  " oninput="calculateRemainingMedicineQuantity()" placeholder="Medicine Quantity" value="{{medicine_to_edit.medicine_remember_quantity_}}" disabled/>
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Medicine Quantity is required and recommended to be unique.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patientMedicineQuantity" class="required form-label">Patient Medicine Quantity</label>
+												<!--end::Label-->
+												<!--begin::Input-->												
+												<input type="text" id="patientMedicineQuantity" name="patientMedicineQuantity" oninput="calculateRemainingMedicineQuantity(); calculateTotalPrice();" class="form-control mb-2" placeholder="Medicine Quantity" value="{{medicine_to_edit.patientmedicine_quantity}}" />
+
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Patient Medicine Quantity is required and recommended to be unique.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patientMedicineRememberQuantity" class="required form-label">Patient Medicine Remember Quantity</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patientMedicineRememberQuantity" name="patientMedicineRememberQuantity" class="form-control mb-2" placeholder="Patient Medicine Remember Quantity" value="{{medicine_to_edit.patientmedicine_remember_quantity}}" readonly/>
+												<!--end::Input-->
+												<span style='color:red;' id="stockStatus"></span>
+											</div>
+											<!--end::Input group-->
+
+											<!--end::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patientMedicineTotalPrice" class="required form-label">Patient Total Price</label>
+												<!--end::Label-->
+												<!--begin::Input-->												
+												<input type="text" id="patientMedicineTotalPrice" name="patientMedicineTotalPrice" oninput="calculateRemainingMedicineQuantity()" class="form-control mb-2  " placeholder="Total Price" value="{{medicine_to_edit.patientmedicine_totalprice}}" readonly/>
+
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Patient Total Price is required and recommended to be unique.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											
+											
+											<!--begin::Input group-->
+											<div class="row mb-0">
+												<!--begin::Label-->
+												<label
+													class="col-lg-4 col-form-label fw-semibold fs-6">Active
+													or Disactive
+												</label>
+												<!--begin::Label-->
+												<!--begin::Label-->
+												<div class="col-lg-8 d-flex align-items-center">
+													<div
+														class="form-check form-check-solid form-switch form-check-custom fv-row">
+														<input class="form-check-input w-45px h-30px"
+															type="checkbox" id="patientmedicinedisable"  name="patientmedicinedisable"
+															checked="checked" />
+														<label class="form-check-label"
+															for="patientmedicinedisable"></label>
+													</div>
+												</div>
+												<!--begin::Label-->
+											</div>
+											<!--end::Input group-->
+										</div>
+										<!--end::Card header-->
+									</div>
+									<!--end::Contact Us options-->
+									
+									
+								</div>
+							</div>
+							<!--end::Tab pane-->
+							
+						</div>
+						<!--end::Tab content-->
+						<div class="d-flex justify-content-end">
+							<!--begin::Button-->
+							<a href="{% url 'patientdetailEditPage' %}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Back</a>
+							<a href="{% url 'patientbillPage' %}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Submit Bill</a>
+							{% comment %} <a href="{% url 'patientmedicineViewPage' %}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">View</a> {% endcomment %}
+							<!--end::Button-->
+							<!--begin::Button-->
+							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+								<span class="indicator-label">Add</span>
+								<span class="indicator-progress">Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+							</button>
+							<!--end::Button-->
+						</div>
+					</div>
+					<!--end::Main column-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end:::Main-->
+
+<script>
+	const editableDiv = document.getElementById('kt_ecommerce_add_product_description');
+	const hiddenInput = document.getElementById('input-hidden'); // A hidden input field to store the content
+	editableDiv.addEventListener('input', function () {
+		hiddenInput.value = editableDiv.innerText;
+	});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	
+
+<script>
+    $(document).ready(function() {
+
+        // Calculate total price and remaining medicine quantity
+        $('#patientMedicineQuantity').on('input', function() {
+            calculateTotalPrice();
+            calculateRemainingMedicineQuantity();
+            enableSubmitButton(); // Check if the button can be enabled
+        });
+
+        // Enable the submit button if all required fields are filled and valid
+        function enableSubmitButton() {
+            var quantity = parseFloat($('#patientMedicineQuantity').val());
+            var remainingQuantity = parseFloat($('#patientMedicineRememberQuantity').val()) || 0;
+
+            if (!isNaN(quantity) && quantity > 0 && remainingQuantity >= 0) {
+                $('#kt_ecommerce_add_product_submit').prop('disabled', false);
+            } else {
+                $('#kt_ecommerce_add_product_submit').prop('disabled', true);
+            }
+        }
+
+        function calculateTotalPrice() {
+            var quantity = parseFloat($('#patientMedicineQuantity').val()) || 0;
+            var price = parseFloat($('#patientMedicinePrice').val()) || 0;
+            var totalPrice = quantity * price;
+            $('#patientMedicineTotalPrice').val(totalPrice.toFixed(2));
+        }
+
+        function calculateRemainingMedicineQuantity() {
+            var totalMedicineQuantity = parseFloat($('#medicineQuantity').val()) || 0;
+            var sellMedicineQuantity = parseFloat($('#patientMedicineQuantity').val()) || 0;
+            var remainingMedicineQuantity = totalMedicineQuantity - sellMedicineQuantity;
+
+            if (remainingMedicineQuantity < 0) {
+                $('#stockStatus').html("Not Enough Quantity Available. Please Enter Enough Quantity");
+                $('#kt_ecommerce_add_product_submit').prop('disabled', true);
+            } else if (totalMedicineQuantity === 0) {
+                $('#stockStatus').html("Out of stock");
+                $('#kt_ecommerce_add_product_submit').prop('disabled', true);
+            } else {
+                $('#stockStatus').html("");
+                enableSubmitButton(); // Check if the button can be enabled
+            }
+
+            $('#patientMedicineRememberQuantity').val(remainingMedicineQuantity.toFixed());
+        }
+
+        function updatePriceAndQuantity(data) {
+            var selectedMg = $('#patientMedicineMg').val();
+            var index = data.medicineMgs.indexOf(selectedMg);
+            $('#medicineModel').val(data.medicine_id[index] || '');
+            $('#patientMedicinePrice').val(data.medicine_price[index] || '');
+            $('#medicineQuantity').val(data.medicine_quantity[index] || '');
+            calculateTotalPrice(); // Recalculate total price
+            calculateRemainingMedicineQuantity(); // Recalculate remaining medicine quantity
+        }
+    });
+</script>
+
+
+
+	
+	
+{% endblock %}

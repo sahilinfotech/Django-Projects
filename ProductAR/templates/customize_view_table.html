@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+  .edit-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  /* Center and enlarge the "No data found" message */
+  .no-data-message {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+  }
+</style>
+
+<br>
+<br>
+
+{% if customizeviewtable %}
+<table>
+  {% for message in messages %}
+  <div id="msgdisplay" class="alert {{ message.tags }} alert-dismissible" role="alert">
+      <strong>Message:</strong> {{ message }}
+  </div>
+  {% endfor %}
+  <thead>
+    <tr>
+      <th>Customize Image</th>
+      <th>Ambient Light</th>
+      <th>Point Light</th>
+      <th>Directional Light</th>
+      <th>Spot Light</th>
+      <th>Dimension</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for customizeimagedata in customizeviewtable %}
+    <tr>
+        <td><img src="{{customizeimagedata.customize_image}}" alt="Image 1"></td>
+        <td>{{customizeimagedata.customize_video_AmbientLight}}</td>
+        <td>{{customizeimagedata.customize_video_PointLight}}</td>
+        <td>{{customizeimagedata.customize_video_DirectionalLight}}</td>
+        <td>{{customizeimagedata.customize_video_SpotLight}}</td>
+        <td>{{customizeimagedata.customize_video_Dimension}}</td>
+        
+        <td>
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Actions
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{% url 'customizeViewDetailsPage' customizeimagedata.customize_id %}">View</a>
+                  <a class="dropdown-item" href="{% url 'uploadVideoFetchPage' customizeimagedata.customize_id %}">Edit</a>
+                  <a class="dropdown-item" href="{% url 'customizeDeletePage' customizeimagedata.customize_id %}">Delete</a>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="no-data-message">Welcome To ProductAR.<a href="{% url 'customizePage' %}">Customization</a></p>
+
+{% endif %}
+
+{% endblock %}

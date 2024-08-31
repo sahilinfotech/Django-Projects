@@ -1,0 +1,473 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <!-- begin::Head -->
+
+  <head>
+    <base href="" />
+    <title>{% block admin_title %}Medicine{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta name="description"
+        content="Medicine power of Generative AI" />
+    <meta name="keywords"
+        content="Medicine, generative ai" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{% url 'indexPage' %}" />
+    <meta property="og:site_name" content="Medicine" />
+    <link rel="canonical" href="{% url 'indexPage' %}" />
+    <link rel="shortcut icon" href="{% static 'frontend_static/assets/imgs/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="{% static 'adminpanelstatic/plugins/custom/fullcalendar/fullcalendar.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'adminpanelstatic/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <!--end::Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="{% static 'adminpanelstatic/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'adminpanelstatic/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+    {% block cssBlock %} {% endblock %}
+    <!--end::Global Stylesheets Bundle-->
+  </head>
+  <!--end::Head-->
+
+  <body>
+    <div class="d-flex flex-column flex-root" id="kt_app_root">
+      <!-- begin::Authentication - Sign-in -->
+      <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+        <!-- begin::Body -->
+        <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+          <!-- begin::Form -->
+          <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+            <!-- begin::Wrapper -->
+            <div class="w-lg-500px p-10">
+              <!-- begin::Form -->
+              <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post" action="{% url 'userLoginPage' %}">
+                {% csrf_token %}
+                <!-- begin::Heading -->
+                <div class="text-center mb-11">
+                  <!-- begin::Title -->
+                  <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
+                  <!-- end::Title -->
+                  <!-- begin::Subtitle -->
+                  <div class="text-gray-500 fw-semibold fs-6">To OHM INSHIGHTS Dashboard</div>
+                  <!-- end::Subtitle= -->
+                </div>
+                <!-- begin::Heading -->
+
+                {% if message != '' %}
+                  <p class="error_box">{{ message }}</p>
+                {% endif %}
+
+                <!-- begin::Login options -->
+
+                <!-- end::Login options -->
+                <!-- begin::Separator -->
+
+                <!-- end::Separator -->
+                <!-- begin::Input group= -->
+                <div class="fv-row mb-8">
+                  <!-- begin::Email -->
+                  <input type="email" placeholder="Username" name="username" autocomplete="off" class="form-control bg-transparent" required="true" />
+                  <!-- end::Email -->
+                </div>
+                <!-- end::Input group= -->
+                <div class="fv-row mb-8">
+                  <!-- begin::Password -->
+                  <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" required="true" />
+                  <!-- end::Password -->
+                </div>
+                <!-- end::Input group= -->
+                <!-- begin::Wrapper -->
+                <div class="text-center mb-5">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+                </div>
+                <!-- end::Wrapper -->
+                <!-- begin::Submit button -->
+                <div class="d-grid mb-10">
+                  <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+                    <!-- begin::Indicator label -->
+                    <span class="indicator-label">Sign In</span>
+                    <!-- end::Indicator label -->
+                    <!-- begin::Indicator progress -->
+                    <span class="indicator-progress">
+                      Please wait...
+                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                    <!-- end::Indicator progress -->
+                  </button>
+                </div>
+                <!-- end::Submit button -->
+                <!-- begin::Sign up -->
+
+                <!-- end::Sign up -->
+              </form>
+              <!-- end::Form -->
+            </div>
+            <!-- end::Wrapper -->
+          </div>
+
+          <!-- end::Form -->
+
+          <!-- begin::Footer -->
+          <div class="w-lg-500px d-flex flex-stack px-10 mx-auto">
+            <!-- begin::Languages -->
+            <div class="me-10">
+              <!-- begin::Toggle -->
+
+              <!-- end::Toggle -->
+              <!-- begin::Menu -->
+
+              <!-- end::Menu -->
+            </div>
+            <!-- end::Languages -->
+            <!-- begin::Links -->
+            <div class="d-flex fw-semibold text-primary fs-base gap-5"></div>
+            <!-- end::Links -->
+          </div>
+          <!-- end::Footer -->
+        </div>
+        <!-- end::Body -->
+        <!-- begin::Aside -->
+        <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url({% static 'media/misc/auth-bg.png' %})">
+          <!-- begin::Content -->
+          <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
+            <!-- begin::Logo -->
+            <div class="mb-0 mb-lg-12">
+              <span class=""><img src="{% static 'frontend_static/assets/imgs/logo-light.png' %}" alt="OHM INSIGHTS logo" width="350" /></span>
+            </div>
+            <!-- end::Logo -->
+            <!-- begin::Image -->
+            <!-- end::Image -->
+            <!-- begin::Title -->
+            <!-- end::Text -->
+          </div>
+          <!-- end::Content -->
+        </div>
+        <!-- end::Aside -->
+      </div>
+      <!-- end::Authentication - Sign-in -->
+    </div>
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="forgotPasswordModalLabel" style="font-size: 14.5px">Forgot Password</h5>
+            <button type="button" class="btn-close" id="closebtn" data-bs-dismiss="modal" aria-label="Close"></button>
+            <span id="errormessage" class="error"
+                   style="color: rgb(202, 60, 60); font-size: 14.5px; font-weight: 600; letter-spacing: 1px;"></span>
+            <span id="emailmessage" class="error"
+                   style="color: rgb(0,255,0); font-size: 14px; font-weight: 600; letter-spacing: 1px;"></span>
+                  </div>
+            
+          <div class="modal-body">
+            <!-- Step 1: Enter Email Address -->
+            <form id="forgotPasswordForm">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required />
+              </div>
+              <button type="button" id="sendOTPBtn" class="btn btn-primary sendotp">Send OTP</button>
+            </form>
+
+            <!-- Step 2: Verify OTP -->
+            <form id="verifyOTPForm" style="display: none;">
+              <div class="mb-3">
+                <label for="otp" class="form-label">Enter OTP</label>
+                <input type="text" class="form-control" id="otp" name="otp" required />
+              </div>
+              <button type="button" id="verifyOTPBtn" class="btn btn-primary">Verify OTP</button>
+            </form>
+
+            <!-- Step 3: Reset Password -->
+            <form id="resetPasswordForm" style="display: none;">
+              <div class="mb-3">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" required />
+              </div>
+              <button type="button" id="resetPasswordBtn" class="btn btn-primary">Reset Password</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- begin::Theme mode setup on page load -->
+    <script>
+      var defaultThemeMode = 'light'
+      var themeMode
+      if (document.documentElement) {
+        if (document.documentElement.hasAttribute('data-bs-theme-mode')) {
+          themeMode = document.documentElement.getAttribute('data-bs-theme-mode')
+        } else {
+          if (localStorage.getItem('data-bs-theme') !== null) {
+            themeMode = localStorage.getItem('data-bs-theme')
+          } else {
+            themeMode = defaultThemeMode
+          }
+        }
+        if (themeMode === 'system') {
+          themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        document.documentElement.setAttribute('data-bs-theme', themeMode)
+      }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+      window.CSRF_TOKEN = '{{ csrf_token }}'
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $('#closebtn').click(function (event) {
+          event.preventDefault() // Prevent default behavior of button click
+          location.reload()
+        })
+      
+        // Disable buttons initially
+        $('#sendOTPBtn').prop('disabled', true)
+        $('#verifyOTPBtn').prop('disabled', true)
+        $('#resetPasswordBtn').prop('disabled', true)
+      
+        // Email input change event
+        $('#email').on('input', function () {
+          if ($(this).val().trim() === '') {
+            $('#sendOTPBtn').prop('disabled', true)
+          } else {
+            $('#sendOTPBtn').prop('disabled', false)
+          }
+        })
+      
+        // OTP input change event
+        $('#otp').on('input', function () {
+          if ($(this).val().trim() === '') {
+            $('#verifyOTPBtn').prop('disabled', true)
+          } else {
+            $('#verifyOTPBtn').prop('disabled', false)
+          }
+        })
+      
+        // New password input change event
+        $('#newPassword').on('input', function () {
+          var newPassword = $('#newPassword').val().trim()
+          var email = $('#email').val().trim()
+      
+          if (newPassword !== '' && email !== '') {
+            $('#resetPasswordBtn').prop('disabled', false)
+          } else {
+            $('#resetPasswordBtn').prop('disabled', true)
+          }
+        })
+      
+        // Email input keypress event
+        $('#email').keypress(function (event) {
+          var regex = /^[a-zA-Z0-9!@#$%^&*.]+$/
+          var key = String.fromCharCode(event.which)
+      
+          if (!regex.test(key)) {
+            event.preventDefault()
+          }
+        })
+      
+        // Email input change event for validation
+        $('#email').change(function () {
+          var emailPatternRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      
+          if ($('#email').val() !== '' && emailPatternRegex.test($('#email').val())) {
+            $('#sendOTPBtn').prop('disabled', false)
+            $('#errormessage').text('');
+          } else {
+            $('#errormessage').text('Please enter valid email address.');
+            $('#sendOTPBtn').prop('disabled', true)
+          }
+        })
+
+        $('#otp').keypress(function (event) {
+          var userotp = $('#otp').val()
+          if(userotp.length===15){
+            $('#errormessage').text('');
+          }else{
+            $('#emailmessage').text('');
+            $('#errormessage').text('Please enter a valid one-time password.');
+          }
+        })
+      
+        // Send OTP button click event
+        $('#sendOTPBtn').on('click', function () {
+
+          // Your code for sending OTP via AJAX
+          var useremail = $('#email').val()
+          var formdata = { useremail: useremail }
+          var jsonData = JSON.stringify(formdata)
+      
+          $.ajax({
+            method: 'POST',
+            url: "{% url 'forgot_password' %}",
+            data: {
+              jsonData: jsonData,
+              csrfmiddlewaretoken: window.CSRF_TOKEN
+            },
+            headers: {
+              'X-CSRFToken': window.CSRF_TOKEN
+            },
+            success: function (response) {
+              console.log('Success:', response)
+              if (response.success) {
+
+                $('#errormessage').text('');
+                $('#emailmessage').text('Mail is sending to your email, please wait a few seconds...');
+                //alert('Mail is sending to your email, please wait a few seconds...')
+                $('#forgotPasswordForm').css('display', 'none')
+                $('#verifyOTPForm').css('display', 'block')
+              } else {
+                //alert('This email is not registered,Please enter a valid email.')
+                $('#errormessage').text('This email is not registered,Please enter a valid email.');
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error('Error:', xhr.responseText)
+            }
+          })
+        })
+      
+        // Verify OTP button click event
+        $('#verifyOTPBtn').on('click', function () {
+          // Your code for verifying OTP via AJAX
+          var userotp = $('#otp').val()
+          var formdata = { userotp: userotp }
+          var jsonData = JSON.stringify(formdata)
+      
+          $.ajax({
+            method: 'POST',
+            url: "{% url 'otppage' %}",
+            data: {
+              jsonData: jsonData,
+              csrfmiddlewaretoken: window.CSRF_TOKEN
+            },
+            headers: {
+              'X-CSRFToken': window.CSRF_TOKEN
+            },
+            success: function (response) {
+              console.log('Success:', response)
+              if (response.success) {
+                $('#verifyOTPForm').css('display', 'none')
+                $('#resetPasswordForm').css('display', 'block')
+                $('#errormessage').text('');
+              } else {
+                //alert('Please enter a valid one-time password.')
+                $('#emailmessage').text('');
+                $('#errormessage').text('Please enter a valid one-time password.');
+                $('#verifyOTPForm').css('display', 'block')
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error('Error:', xhr.responseText)
+            }
+          })
+        })
+      
+        // Reset password button click event
+        $('#resetPasswordBtn').on('click', function () {
+          // Your code for resetting password via AJAX
+          var usernewpassword = $('#newPassword').val()
+          if (usernewpassword.length < 8) {
+            //alert('Password must be at least 8 characters long.')
+            $('#errormessage').text('Password must be at least 8 characters long.');
+            return
+          }
+      
+          if (!/[A-Z]/.test(usernewpassword)) {
+            //alert('Password must contain at least one uppercase character.')
+            $('#errormessage').text('Password must contain at least one uppercase character.');
+            return
+          }
+      
+          if (!/[^a-zA-Z0-9]/.test(usernewpassword)) {
+            //alert('Password must contain at least one special character.')
+            $('#errormessage').text('Password must contain at least one special character.');
+            return
+          }
+      
+          var formdata = {
+            usernewpassword: usernewpassword,
+            useremail: $('#email').val()
+          }
+          var jsonData = JSON.stringify(formdata)
+      
+          $.ajax({
+            method: 'POST',
+            url: "{% url 'newpasswordpage' %}",
+            data: {
+              jsonData: jsonData,
+              csrfmiddlewaretoken: window.CSRF_TOKEN
+            },
+            headers: {
+              'X-CSRFToken': window.CSRF_TOKEN
+            },
+            success: function (response) {
+              console.log('Success:', response)
+              $('#resetPasswordForm').css('display', 'none')
+              $('#forgotPasswordModal').css('display', 'none')
+              //alert('Password change successfully')
+              $('#errormessage').text('Password change successfully');
+             // window.location.href = '/OHM-adminpanel/'
+              window.location.href = '/adminpanel/'
+            },
+            error: function (xhr, status, error) {
+              console.error('Error:', xhr.responseText)
+            }
+          })
+        })
+      })
+    </script>
+
+    <!-- begin::Javascript -->
+    <script>
+      var hostUrl = "{% static 'adminpanelstatic/' %}"
+    </script>
+
+    <!-- begin::Global Javascript Bundle(mandatory for all pages) -->
+    <script src="{% static 'adminpanelstatic/plugins/global/plugins.bundle.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/scripts.bundle.js' %}"></script>
+
+    <!-- end::Global Javascript Bundle -->
+    <!-- begin::Vendors Javascript(used for this page only) -->
+
+    <script src="{% static 'adminpanelstatic/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+    <script src="{% static 'adminpanelstatic/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+    <!-- end::Vendors Javascript -->
+    <!-- begin::Custom Javascript(used for this page only) -->
+    <script src="{% static 'adminpanelstatic/js/widgets.bundle.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/custom/widgets.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/custom/apps/chat/chat.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/custom/utilities/modals/upgrade-plan.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/custom/utilities/modals/create-app.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/custom/utilities/modals/new-target.js' %}"></script>
+    <script src="{% static 'adminpanelstatic/js/custom/utilities/modals/users-search.js' %}"></script>
+    <!-- end::Custom Javascript -->
+    <!-- end::Javascript -->
+
+    {% block mainJs %}
+    {% endblock %}
+  </body>
+  <!-- end::Body -->
+</html>

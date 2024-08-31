@@ -1,0 +1,117 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+    
+<!-- Mirrored from templates.envytheme.com/comero/default/category-without-sidebar-fullwidth-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 12:50:10 GMT -->
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap Min CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/bootstrap.min.css' %}">
+  <!-- Animate Min CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/animate.min.css' %}">
+  <!-- Font Awesome Min CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/fontawesome.min.css' %}">
+  <!-- Owl Carousel Min CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/owl.carousel.min.css' %}">
+  <!-- niceSelect CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/nice-select.css' %}">
+  <!-- Magnific Popup Min CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/magnific-popup.min.css' %}">
+  <!-- MeanMenu CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/meanmenu.css' %}">
+  <!-- ION rangeSlider Min CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/ion.rangeSlider.min.css' %}">
+<!-- Slick CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/slick.css' %}">
+  <!-- Slick Theme CSS -->
+<link rel="stylesheet" href="{% static 'frontend_static/assets/css/slick-theme.css' %}">
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/style.css' %}">
+  <!-- Responsive CSS -->
+  <link rel="stylesheet" href="{% static 'frontend_static/assets/css/responsive.css' %}">
+
+  <title>Product AR - Shirt 3D Model</title>
+
+  <link rel="icon" type="image/png" href="{% static 'frontend_static/assets/img/favicon.png' %}">
+
+  <style>
+    .contain,
+    .filters{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .contain{
+      flex-direction: column;
+      width: 400px;
+      height: 70vh;
+      color: black;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+    }
+    .filters {
+      flex-direction: column;
+      width: 100%;
+      gap: 15px;
+      margin: 10px;
+  }
+  .filter {
+      width: 100%;
+  }
+
+  .filter_input_width{
+    width:90%
+  }
+  </style>
+
+  {% block cssBlock %} {% endblock %}
+</head>
+<body>
+  {% include 'navbar.html' %}
+  {% block bodyblock %}
+  {% endblock %}
+  {% include 'footer.html' %}
+
+  <div class="go-top"><i class="fas fa-arrow-up"></i><i class="fas fa-arrow-up"></i></div>
+
+  <!-- JQuery Min Js -->
+  <script src="{% static 'frontend_static/assets/js/jquery.min.js' %}"></script>
+  <!-- Popper Min JS -->
+  <script src="{% static 'frontend_static/assets/js/popper.min.js' %}"></script>
+  <!-- Bootstrap Min Js -->
+  <script src="{% static 'frontend_static/assets/js/bootstrap.min.js' %}"></script>
+  <!-- Parallax Min JS -->
+  <script src="{% static 'frontend_static/assets/js/parallax.min.js' %}"></script>
+  <!-- Slick Min JS -->
+  <script src="{% static 'frontend_static/assets/js/slick.js' %}"></script>
+  <!-- Owl Carousel Min JS -->
+  <script src="{% static 'frontend_static/assets/js/owl.carousel.min.js' %}"></script>
+  <!-- Magnific Popup Min JS -->
+  <script src="{% static 'frontend_static/assets/js/jquery.magnific-popup.min.js' %}"></script>
+  <!-- niceSelect Min JS -->
+  <script src="{% static 'frontend_static/assets/js/jquery.nice-select.min.js' %}"></script>
+  <!-- MeanMenu JS -->
+  <script src="{% static 'frontend_static/assets/js/jquery.meanmenu.js' %}"></script>
+  <!-- ION rangeSlider Min JS  -->
+  <script src="{% static 'frontend_static/assets/js/ion.rangeSlider.min.js' %}"></script>
+  <!-- Form Validator Min JS -->
+  <script src="{% static 'frontend_static/assets/js/form-validator.min.js' %}"></script>
+  <!-- Contact Form Min JS -->
+  <script src="{% static 'frontend_static/assets/js/contact-form-script.js' %}"></script>
+  <!-- ajaxChimp Min JS -->
+  <script src="{% static 'frontend_static/assets/js/jquery.ajaxchimp.min.js' %}"></script>
+  <!-- Comero Map JS FILE -->
+  <script src="{% static 'frontend_static/assets/js/comero-map.js' %}"></script>
+  <!-- Main JS -->
+  <script src="{% static 'frontend_static/assets/js/main.js' %}"></script>
+
+  
+  {% block jsBlock %} {% endblock %}
+</body>
+
+</html>

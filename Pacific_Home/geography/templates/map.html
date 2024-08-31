@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Address to Get Coordinates and Map</h1>
+    <form method="post" action="{% url 'get_location' %}">
+        {% csrf_token %}
+        <input type="text" name="address" placeholder="Enter address" required>
+        <button type="submit">Get Location</button>
+    </form>
+    {% if coordinates %}
+        <h2>Coordinates for '{{ address }}':</h2>
+        <p id="initial-coordinates">Latitude: {{ coordinates.0 }}, Longitude: {{ coordinates.1 }}</p>
+        <div id="map"></div>
+        <p>Updated Coordinates:</p>
+        <p id="updated-coordinates">Drag the marker to see the new coordinates.</p>
+    {% elif address %}
+        <h2>Address not found: '{{ address }}'</h2>
+    {% endif %}
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        {% if coordinates %}
+            var initialCoordinates = [{{ coordinates.0 }}, {{ coordinates.1 }}];
+            var map = L.map('map').setView(initialCoordinates, 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var marker = L.marker(initialCoordinates, {draggable: true}).addTo(map)
+                .bindPopup('{{ address }}')
+                .openPopup();
+
+            function updateCoordinates(e) {
+                var position = e.target.getLatLng();
+                document.getElementById('updated-coordinates').innerText = 
+                    'Latitude: ' + position.lat + ', Longitude: ' + position.lng;
+            }
+
+            marker.on('dragend', updateCoordinates);
+        {% endif %}
+    </script>
+</body>
+</html>

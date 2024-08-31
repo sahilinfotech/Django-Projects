@@ -1,0 +1,471 @@
+{% extends 'Admin_Base.html' %} 
+{% load static %} {% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Resume Details Form</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Admin Side</a>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Database</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Add Resume Details</li>
+						<!--end::Item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+				
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			{% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Form-->
+				<form id="myresumeForm" action="{% url "resumeAddPage" %}" enctype="multipart/form-data" method="post" data-parsley-validate
+				novalidate  class="form d-flex flex-column flex-lg-row" >{% csrf_token %}
+				
+				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+					<!--begin::Slider settings-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<h2> Photo </h2>
+							</div>
+							<!--end::Card title-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body text-center pt-0">
+							<!--begin::Image input-->
+							<!--begin::Image input placeholder-->
+							<style>.image-input-placeholder { background-image: url('../static/media/svg/files/blank-image.svg'); } [data-bs-theme="dark"] .image-input-placeholder { background-image: url('../static/media/svg/files/blank-image-dark.svg'); }</style>
+							<!--end::Image input placeholder-->
+							<div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+								<!--begin::Preview existing avatar-->
+								<div class="image-input-wrapper w-150px h-150px"></div>
+								<!--end::Preview existing avatar-->
+								<!--begin::Label-->
+								<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Add Image">
+									<i class="bi bi-pencil-fill fs-7"></i>
+									<!--begin::Inputs-->
+									<input type="file" name="resumeimage" accept=".png, .jpg, .jpeg" />
+									<input type="hidden" name="avatar_remove" />
+									<!--end::Inputs-->
+								</label>
+								<!--end::Label-->
+								<!--begin::Cancel-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel Image">
+									<i class="bi bi-x fs-2"></i>
+								</span>
+								<!--end::Cancel-->
+								<!--begin::Remove-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove Image">
+									<i class="bi bi-x fs-2"></i>
+								</span>
+								<!--end::Remove-->
+							</div>
+							<!--end::Image input-->
+							<!--begin::Description-->
+							<div class="text-muted fs-7">Set the Transation image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+							<!--end::Description-->
+						</div>
+						<!--end::Card body-->
+					</div>
+					
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+							<div class="card-header">
+								<!--begin::Card title-->
+								<div class="card-title">
+									<h2> Project Image </h2>
+								</div>
+								<!--end::Card title-->
+							</div>
+							<!--end::Card header-->
+							<!--begin::Card body-->
+							<div class="card-body text-center pt-0">
+								<!--begin::Image input-->
+								<!--begin::Image input placeholder-->
+								<style>.image-input-placeholder { background-image: url('../static/media/svg/files/blank-image.svg'); } [data-bs-theme="dark"] .image-input-placeholder { background-image: url('../static/media/svg/files/blank-image-dark.svg'); }</style>
+								<!--end::Image input placeholder-->
+								<div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+									<!--begin::Preview existing avatar-->
+									<div class="image-input-wrapper w-150px h-150px"></div>
+									<!--end::Preview existing avatar-->
+									<!--begin::Label-->
+									<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Add Image">
+										<i class="bi bi-pencil-fill fs-7"></i>
+										<!--begin::Inputs-->
+										<input type="file" name="resumeprojectimage" accept=".png, .jpg, .jpeg" />
+										<input type="hidden" name="avatar_remove" />
+										<!--end::Inputs-->
+									</label>
+									<!--end::Label-->
+									<!--begin::Cancel-->
+									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel Image">
+										<i class="bi bi-x fs-2"></i>
+									</span>
+									<!--end::Cancel-->
+									<!--begin::Remove-->
+									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove Image">
+										<i class="bi bi-x fs-2"></i>
+									</span>
+									<!--end::Remove-->
+								</div>
+								<!--end::Image input-->
+								<!--begin::Description-->
+								<div class="text-muted fs-7">Set the Cheque image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+								<!--end::Description-->
+							</div>
+							<!--end::Card body-->
+					</div>
+					<!--end::Slider settings-->
+				</div>
+				<!--end::Aside column-->	
+					
+					<!--begin::Main column-->
+					<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+						<!--begin::Tab content-->
+						<div class="tab-content">
+							<!--begin::Tab pane-->
+							<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+								<div class="d-flex flex-column gap-7 gap-lg-10">
+									<!--begin::Add Resume Details options-->
+									<div class="card card-flush py-4">
+										<!--begin::Card header-->
+										<div class="card-header">
+											<div class="card-title">
+												<h2>Add Resume Details Information</h2>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Card body-->
+										<div class="card-body pt-0">
+																						
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="fullname" class="required form-label">Full Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="fullname" name="fullname" class="form-control mb-2" placeholder="Full Name" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Full Name is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="email" class="required form-label">Email</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="email" name="email" class="form-control mb-2" placeholder="Email" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Email is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="headline" class="required form-label">Headline</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="headline" name="headline" class="form-control mb-2" placeholder="Headline" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Headline is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="phoneno" class="required form-label">Phone number</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="phoneno" name="phoneno" class="form-control mb-2" placeholder="Phone number" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Phone number is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="address" class="required form-label">Address</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="address" name="address" class="form-control mb-2" placeholder="Address" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Address is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											
+											
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="city" class="required form-label">City</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="city" name="city" class="form-control mb-2" placeholder="City" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A City is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="education" class="required form-label">Education</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="education" name="education" class="form-control mb-2" placeholder="Education" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Education is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="school" class="required form-label">School </label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="school" name="school" class="form-control mb-2" placeholder="School Name" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A School Name is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="educationdate" class="required form-label">Start educationDate- End educationDate</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="educationdate" name="educationdate" class="form-control mb-2" placeholder="June-2019 to June-2023" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A June-2019 to June-2023 is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">Description</label>
+                                                <!--end::Label-->
+                                                <!--begin::Editor-->
+                                                <div type="text" id="kt_ecommerce_add_product_description"
+                                                    class="min-h-200px mb-2"></div>
+                                                <input type="hidden" name="educationdescription" id="input-hidden" />
+                                                <!--end::Editor-->
+                                            </div>
+                                            <!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="technicalskills" class="required form-label">Technical Skills</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="technicalskills" name="technicalskills" class="form-control mb-2" placeholder="Technical Skills" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Technical Skills is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="softskills" class="required form-label">Soft Skills</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="softskills" name="softskills" class="form-control mb-2" placeholder="Soft Skills" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Soft Skills is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="language" class="required form-label">Language</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="language" name="language" class="form-control mb-2" placeholder="Language" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Language is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="hobby" class="required form-label">Hobby</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="hobby" name="hobby" class="form-control mb-2" placeholder="Hobby" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Hobby is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											
+											<!--begin::Input group-->
+											<div class="row mb-0">
+												<!--begin::Label-->
+												<label
+													class="col-lg-4 col-form-label fw-semibold fs-6">Active
+													or Disactive
+												</label>
+												<!--begin::Label-->
+												<!--begin::Label-->
+												<div class="col-lg-8 d-flex align-items-center">
+													<div
+														class="form-check form-check-solid form-switch form-check-custom fv-row">
+														<input class="form-check-input w-45px h-30px"
+															type="checkbox" id="resumedisable"  name="resumedisable"
+															checked="checked" />
+														<label class="form-check-label"
+															for="resumedisable"></label>
+													</div>
+												</div>
+												<!--begin::Label-->
+											</div>
+											<!--end::Input group-->
+										</div>
+										<!--end::Card header-->
+									</div>
+									<!--end::Contact Us options-->
+																		
+								</div>
+							</div>
+							<!--end::Tab pane-->
+						</div>
+						<!--end::Tab content-->
+						
+						<div class="d-flex justify-content-end">
+							<!--begin::Button-->
+							<a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+							<!--end::Button-->
+							<!--begin::Button-->
+							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+								<span class="indicator-label">Save Changes</span>
+								<span class="indicator-progress">Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+							</button>
+							<!--end::Button-->
+						</div>
+					</div>
+					<!--end::Main column-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end:::Main-->
+<script>
+	const editableDiv = document.getElementById('kt_ecommerce_add_product_description');
+	const hiddenInput = document.getElementById('input-hidden'); // A hidden input field to store the content
+	editableDiv.addEventListener('input', function () {
+		hiddenInput.value = editableDiv.innerText;
+	});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const resumeForm = document.getElementById('myresumeForm');
+
+    resumeForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(resumeForm);
+
+        // Use AJAX to send the form data to the server
+        fetch('{% url "resumeAddPage" %}', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Server Error');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle the response data, you can update the UI or show a success message
+            console.log(data);
+            if (data.success) {
+                // Show success message to the user
+                alert('Form submitted successfully');
+            } else {
+                // Show error message to the user
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    });
+});
+</script>
+
+
+{% endblock %}

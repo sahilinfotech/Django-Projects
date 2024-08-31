@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+    <!-- Booking Success Page Content -->
+    <section class="py-4 gray-simple position-relative">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="card mb-3">
+                        <div class="car-body px-xl-5 px-lg-4 py-lg-5 py-4 px-2">
+                            <!-- Display Success Message -->
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <div class="square--80 circle text-light bg-success"><i class="fa-solid fa-check-double fs-1"></i></div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center flex-column text-center mb-5">
+                                <h3 class="mb-0">Your Application was confirmed successfully!</h3>
+                            </div>
+                            <!-- Display Booking Details -->
+                            <div class="border br-dashed full-width rounded-2 p-3 pt-0">
+                                <ul class="row align-items-center justify-content-start g-3 m-0 p-0">
+                                    <li class="col-md-4">
+                                        <div class="d-block">
+                                            <p class="text-dark fw-medium lh-2 mb-0">Order Invoice</p>
+                                            <p class="text-muted mb-0 lh-2">{{ bookingSuccessful.bookingSuccessful_order_invoice }}</p>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="d-block">
+                                            <p class="text-dark fw-medium lh-2 mb-0">Total Amount</p>
+                                            <p class="text-muted mb-0 lh-2">{{ bookingSuccessful.bookingSuccessful_total_amount }}</p>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="d-block">
+                                            <p class="text-dark fw-medium lh-2 mb-0">Payment Mode</p>
+                                            <p class="text-muted mb-0 lh-2">{{ bookingSuccessful.bookingSuccessful_payment_mode }}</p>
+                                        </div>
+                                    </li>
+                                    <!-- Display User Details -->
+                                    <li class="col-md-4">
+                                        <div class="d-block">
+                                            <p class="text-dark fw-medium lh-2 mb-0">First Name</p>
+                                            <p class="text-muted mb-0 lh-2">{{ bookingSuccessful.bookingSuccessful_firstname }}</p>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="d-block">
+                                            <p class="text-dark fw-medium lh-2 mb-0">Last Name</p>
+                                            <p class="text-muted mb-0 lh-2">{{ bookingSuccessful.bookingSuccessful_lastname }}</p>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="d-block">
+                                            <p class="text-dark fw-medium lh-2 mb-0">Email</p>
+                                            <p class="text-muted mb-0 lh-2">{{ bookingSuccessful.bookingSuccessful_email }}</p>
+                                        </div>
+                                    </li>
+                                    <!-- Add other user details you want to display -->
+                                </ul>
+                            </div>
+                            <!-- Action Buttons -->
+                            <div class="text-center d-flex align-items-center justify-content-center">
+                                <a href="{% url 'indexPage' %}" class="btn btn-md btn-light-seegreen fw-semibold mx-2">Book Next Tour</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#invoice" class="btn btn-md btn-light-primary fw-semibold mx-2">View Invoice Print</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Booking Success Page Content -->
+    <script>
+        // Clear localStorage
+        localStorage.removeItem('memberAdded');
+    </script>
+{% endblock %}

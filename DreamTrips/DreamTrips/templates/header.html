@@ -1,0 +1,68 @@
+{% load static %}
+
+<!-- Start Navigation -->
+<div class="{{context.header}}">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                {% if context.mainheaderClass %}
+                <a class="nav-brand static-show" href="#"><img src="{% static 'frontend_static/assets/img/logo_dream.png' %}" class="logo" alt=""></a>
+                {% endif %}
+                <a class="nav-brand {{context.headerClass}}" href="#"><img src="{% static 'frontend_static/assets/img/logo_dream.png' %}" class="logo" alt=""></a>
+                <div class="nav-toggle"></div>
+                <div class="mobile_nav">
+                    <ul>
+                        <li>
+                            <a href="{% url 'loginPage' %}" class="bg-light-primary text-primary rounded" data-bs-toggle="modal"
+                                data-bs-target="#login"><i class="fa-regular fa-circle-user fs-6"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
+
+                    <li><a href="{% url 'indexPage' %}"style="font-size: 20px;">Home<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{% url 'tourPage' %}"style="font-size: 20px;">Tour<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{% url 'flightPage' %}"style="font-size: 20px;">Flights<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{% url 'hotelPage' %}"style="font-size: 20px;">Hotels<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{% url 'contactUsPage' %}"style="font-size: 20px;">Contact<span class="submenu-indicator"></span></a></li>
+
+                </ul>
+
+                <ul class="nav-menu nav-menu-social align-to-right">
+                {% if context.listheader %}
+                    {% if flag == 1 %}
+                    <li class="{{context.listheader}}">
+                        <div class="btn-group account-drop">
+                            <button type="button" class="btn btn-order-by-filt" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="fa-regular fa-circle-user fs-6 me-2" class="{{context.alistheader}}" ></a>
+                            </button>
+                            <div class="dropdown-menu pull-right animated flipInX">
+                                <div class="drp_menu_headr">
+                                    <h4>Hi, {{ userDetails.user_firstname }}</h4>
+                                </div>
+                                <ul>
+                                    <li><a href="{% url 'myprofilePage' %}"><i class="fa-regular fa-id-card me-2"></i>Edit Profile</a></li>
+                                    <li><a href="{% url 'myprofilepasswordPage' %}"><i class="fa-regular fa-id-card me-2"></i>Update Password</a></li>
+                                    <li><a href="{% url 'LogoutPage' %}"><i class="fa-solid fa-power-off me-2"></i>Sign Out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% if flag == 0 %}               
+                    <li class="{{context.listheader}}">
+                        <a href="{% url 'loginPage' %}" class="{{context.alistheader}}" ><i
+                                class="fa-regular fa-circle-user fs-6 me-2"></i>Sign In / Register</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+                    
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- End Navigation -->

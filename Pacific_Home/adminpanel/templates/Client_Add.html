@@ -1,0 +1,430 @@
+{% extends 'Admin_Base.html' %} 
+{% load static %} {% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Client Details Form</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Admin Side</a>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Pacific Homes</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Add Client Details</li>
+						<!--end::Item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+				
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			{% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+			<!--begin::Content container-->	
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Form-->
+				<form action="{% url "clientAddPage" %}" enctype="multipart/form-data" method="post" data-parsley-validate
+				novalidate  class="form d-flex flex-column flex-lg-row" >{% csrf_token %}	
+					
+					<!--begin::Main column-->
+					<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+						<!--begin::Tab content-->
+						<div class="tab-content">
+							<!--begin::Tab pane-->
+							<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+								<div class="d-flex flex-column gap-7 gap-lg-10">
+									<!--begin::Add Client Details options-->
+									<div class="card card-flush py-4">
+										<!--begin::Card header-->
+										<div class="card-header">
+											<div class="card-title">
+												<h2>Client Details Information</h2>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Card body-->
+										<div class="card-body pt-0">
+											<label for="visitormodel" class="required form-label">Phone No</label>
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												
+												<select class="form-select mb-2 visitormodel" name="visitormodel" id="visitormodel"
+                                                    data-control="select2" data-hide-search="" >
+                                                    <option value="select">Select Phone No</option>
+                                                    {% for banglows in visitor_view %}
+                                                    <option value="{{ banglows.visitor_id }}">
+                                                        {{ banglows.visitor_whatapp_phoneNo }}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+											</div>
+											<div class="mb-10 fv-row">
+												<label for="clientBangalowNo" class="required form-label">Bangalow No.</label>
+												<!--begin::Input-->
+												<input type="text" id="clientBangalowNo" name="clientBangalowNo" class="form-control mb-2" placeholder="Bangalow No." value="" />
+												
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Client First Name is required and recommended to be unique.</div>
+												<!--end::Description-->
+											</div>
+											
+											<div class="d-flex">
+												<div class="mb-10 fv-row">
+													<!--begin::Label-->
+													<label for="clientFirstName" class="required form-label">First Name & Middle Name</label>
+													<!--end::Label-->
+													<!--begin::Input-->												
+													<input type="text" id="clientFirstName" name="clientFirstName" class="form-control mb-2  " placeholder="First Name & Middle Name" value="" />
+													<!--end::Input-->
+													<!--begin::Description-->
+													<div class="text-muted fs-7">A Client First Name & Middle Name is required and recommended to be unique.</div>
+													<!--end::Description-->
+												</div>
+												<!--end::Input group-->
+												<!--begin::Input group-->
+												<div class="mb-10 fv-row">
+													<!--begin::Label-->
+													<label for="clientLastName" class="required form-label">Last Name</label>
+													<!--end::Label-->
+													<!--begin::Input-->
+													<input type="text" id="clientLastName" name="clientLastName" class="form-control mb-2" placeholder="Last Name" value="" />
+													<!--end::Input-->
+													<!--begin::Description-->
+													<div class="text-muted fs-7">A Client Last Name is required.</div>
+													<!--end::Description-->
+												</div>
+												<!--end::Input group-->
+											</div>
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientemail" class="required form-label">Email</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientemail" name="clientemail" class="form-control mb-2" placeholder="Email" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Client Email is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientAadharCardNo" class="required form-label">Client AadharCard No.</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientAadharCardNo" name="clientAadharCardNo" class="form-control mb-2" placeholder="Client AadharCard No." value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Client AadharCard No. is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientPanCardNo" class="required form-label">Client PanCard No.</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientPanCardNo" name="clientPanCardNo" class="form-control mb-2" placeholder="Client PanCard No." value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Client PanCard No. is required.</div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientProof" class="required form-label">Client Additional Proof</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="file" id="clientProof" name="clientProof" class="form-control-file" placeholder="Client Additional Proof" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Client Additional Proof is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientTotalPrice" class="required form-label">Total Price</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientTotalPrice" name="clientTotalPrice" oninput="calculateRemainingPrice()" class="form-control mb-2" placeholder="Total Price" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Total Price is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientAmountMode" class="required form-label">Payment Mode</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<select class="form-select mb-2" name="clientAmountMode" id="clientAmountMode" data-control="select2" data-hide-search="true" data-placeholder="Select A Payment Mode">
+													<option></option>
+													<option value="Token">Token</option>
+													<option value="Installment">Installment</option>
+													<option value="Loan">Loan</option>
+												</select>
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">Select The Payment Mode. </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientTransition" class="required form-label">Amount Transation</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<select class="form-select mb-2" name="clientTransition" id="clientTransition" data-control="select2" data-hide-search="true" data-placeholder="Select An Amount Transation">
+													<option></option>
+													<option value="Cash">Cash</option>
+													<option value="Cheque">Cheque</option>
+													<option value="RTGS">RTGS</option>
+												</select>
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">Select The Amount Transation. </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientTokenPayment" class="required form-label">Total Transition Payment</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientTokenPayment" name="clientTokenPayment" oninput="calculateRemainingPrice()" class="form-control mb-2" placeholder="Total Transition Payment" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Total Transition Payment is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientTotalRemainingAmount" class="required form-label">Total Remaining Amount</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientTotalRemainingAmount" name="clientTotalRemainingAmount" onchange="calculateMonthlyAmount()" oninput="calculateMonthlyAmount()" class="form-control mb-2" placeholder="Total Remaining Amount" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Total Remaining Amount is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientTimePeriod" class="required form-label">Time Period</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<select class="form-select mb-2" name="clientTimePeriod" id="clientTimePeriod" onchange="calculateMonthlyAmount()" data-control="select2" data-hide-search="true" data-placeholder="Select A Time Period">
+													<option></option>
+													<option value="3">3</option>
+													<option value="6">6</option>
+													<option value="9">9</option>
+													<option value="12">12</option>
+													<option value="18">18</option>
+													<option value="24">24</option>
+												</select>
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">Select The Time Period. </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientMonthlyAmount" class="required form-label">Monthly Amount</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientMonthlyAmount" name="clientMonthlyAmount" class="form-control mb-2" placeholder="Monthly Amount" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A Monthly Amount is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="clientDate" class="required form-label">Date</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="clientDate" name="clientDate" class="form-control mb-2" placeholder="31-12-2023" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<div class="text-muted fs-7">A DD-MM-YYYY Format Date is required </div>
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="row mb-0">
+												<!--begin::Label-->
+												<label
+													class="col-lg-4 col-form-label fw-semibold fs-6">Active
+													or Disactive
+												</label>
+												<!--begin::Label-->
+												<!--begin::Label-->
+												<div class="col-lg-8 d-flex align-items-center">
+													<div
+														class="form-check form-check-solid form-switch form-check-custom fv-row">
+														<input class="form-check-input w-45px h-30px"
+															type="checkbox" id="clientdisable"  name="clientdisable"
+															checked="checked" />
+														<label class="form-check-label"
+															for="clientdisable"></label>
+													</div>
+												</div>
+												<!--begin::Label-->
+											</div>
+											<!--end::Input group-->
+										</div>
+										<!--end::Card header-->
+									</div>
+									<!--end::Contact Us options-->
+									
+									
+								</div>
+							</div>
+							<!--end::Tab pane-->
+							
+						</div>
+						<!--end::Tab content-->
+						<div class="d-flex justify-content-end">
+							<!--begin::Button-->
+							<a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+							<!--end::Button-->
+							<!--begin::Button-->
+							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+								<span class="indicator-label">Save Changes</span>
+								<span class="indicator-progress">Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+							</button>
+							<!--end::Button-->
+						</div>
+					</div>
+					<!--end::Main column-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end:::Main-->
+
+<script>
+	const editableDiv = document.getElementById('kt_ecommerce_add_product_description');
+	const hiddenInput = document.getElementById('input-hidden'); // A hidden input field to store the content
+	editableDiv.addEventListener('input', function () {
+		hiddenInput.value = editableDiv.innerText;
+	});
+</script>
+<script>
+    function calculateRemainingPrice() {
+        // Get values from input fields
+        var totalPrice = parseFloat(document.getElementById('clientTotalPrice').value) || 0;
+        var tokenPrice = parseFloat(document.getElementById('clientTokenPayment').value) || 0;
+
+        // Calculate remaining price
+        var remainingPrice = totalPrice - tokenPrice;
+
+        // Update the remainingPrice field
+        document.getElementById('clientTotalRemainingAmount').value = remainingPrice.toFixed();
+
+        // Trigger calculateMonthlyAmount function when remainingPrice changes
+        calculateMonthlyAmount();
+    }
+
+    function calculateMonthlyAmount() {
+        // Get values from input fields
+        var remainingPrice = parseFloat(document.getElementById('clientTotalRemainingAmount').value) || 0;
+        var timePeriod = parseFloat(document.getElementById('clientTimePeriod').value) || 0;
+
+        // Calculate monthly amount
+        var monthlyAmount = remainingPrice / timePeriod;
+
+        // Update the MonthlyAmount field
+        document.getElementById('clientMonthlyAmount').value = monthlyAmount.toFixed();
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$('#visitormodel').on('change', function() {
+			var visitor_id = $(this).val();
+	
+			// Make an AJAX request
+			$.ajax({
+				type: 'GET',
+				url: '/Pacifichomes-adminpanel/client_datafetch/' + visitor_id + '/',
+				success: function(data) {
+					console.log('Data:', data);
+					// Update HTML elements with the received data
+					$('#clientBangalowNo').val(data.visitor_banglow || ''); 
+					$('#clientFirstName').val(data.visitor_first_name || ''); 
+					$('#clientLastName').val(data.visitor_last_name || '');   
+					$('#clientemail').val(data.visitor_email_id || '');         
+				},
+				error: function(error) {
+					console.log('Error:', error);
+				}
+			});
+		});
+	});
+</script>
+	
+
+	
+	
+{% endblock %}

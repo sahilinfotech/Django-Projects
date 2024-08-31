@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+
+		<!-- ============================ Hotel Details Start ================================== -->
+		<section class="pt-3 gray-simple">
+			<div class="container">
+				<div class="row">
+
+					<!-- Breadcrumb -->
+					<div class="col-xl-12 col-lg-12 col-md-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="{% url 'indexPage' %}" class="text-primary">Home</a></li>
+								<li class="breadcrumb-item"><a href="{% url 'flightPage' %}" class="text-primary">Flight</a></li>
+								<li class="breadcrumb-item active" aria-current="page">{{flightdetailsdata.flightDetails_departure_place}} To {{flightdetailsdata.flightDetails_destination_place}}</li>
+							</ol>
+						</nav>
+					</div>
+
+					<!-- Flight Info -->
+					<div class="row align-items-center g-4 mt-2">
+						{% for flight_classdetail in flightclassdata %}
+						<div class="col-xl-12 col-lg12 col-md-12">
+							<div class="flights-accordion">
+								<div class="flights-list-item bg-white rounded-3 p-3">
+									<div class="row gy-4 align-items-center justify-content-between">
+										<div class="col">
+											<div class="row">
+												<div class="col-xl-12 col-lg-12 col-md-12">
+													<div class="d-flex align-items-center mb-2">
+														<span class="label bg-light-primary text-primary me-2">Departure</span>
+														<span class="text-muted text-sm">{{flight_classdetail.flightDetails.flightDetails_date}}</span>
+													</div>
+												</div>
+												<div class="col-xl-12 col-lg-12 col-md-12">
+													<div class="row gx-lg-5 gx-3 gy-4 align-items-center">
+
+														<div class="col-sm-auto">
+															<div class="d-flex align-items-center justify-content-start">
+																<div class="d-start fl-pic">
+																	<img class="img-fluid" src="/media/{{flight_classdetail.flightDetails.flight.flight_icon}}" width="45" alt="image">
+																</div>
+																<div class="d-end fl-title ps-2">
+																	<div class="text-dark fw-medium">{{flight_classdetail.flightDetails.flight.flight_name}}</div>	
+																	<div class="text-sm text-muted">{{flight_classdetail.flightClass_name}}</div>																	
+																	<div class="text-sm text-muted"></div>
+																</div>
+															</div>
+														</div>
+
+														<div class="col">
+															<div class="row gx-3 align-items-center">
+																<div class="col-auto">
+																	<div class="text-dark fw-bold">{{flight_classdetail.flightDetails.flightDetails_departure_time}}</div>
+																	<div class="text-muted text-sm fw-medium">{{flight_classdetail.flightDetails.flightDetails_departure_place}}</div>
+																</div>
+
+																<div class="col text-center">
+																	<div class="flightLine departure">
+																		<div></div>
+																		<div></div>
+																	</div>
+																	<div class="text-muted text-sm fw-medium mt-3">Direct</div>
+																</div>
+
+																<div class="col-auto">
+																	<div class="text-dark fw-bold">{{flight_classdetail.flightDetails.flightDetails_destination_time}}</div>
+																	<div class="text-muted text-sm fw-medium">{{flight_classdetail.flightDetails.flightDetails_destination_place}}</div>
+																</div>
+															</div>
+														</div>
+
+														<div class="col-md-auto">
+															<div class="text-dark fw-medium">{{flight_classdetail.flightDetails.flightDetails_timeperiod}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row mt-4">
+												<div class="col-xl-12 col-lg-12 col-md-12">
+													<div class="d-flex align-items-center mb-2">
+														<span class="label bg-light-success text-success me-2">Return</span>
+														<span class="text-muted text-sm">{{flight_classdetail.flightDetails.flightDetails_return_date}}</span>
+													</div>
+												</div>
+
+												<div class="col-xl-12 col-lg-12 col-md-12">
+													<div class="row gx-lg-5 gx-3 gy-4 align-items-center">
+														<div class="col-sm-auto">
+															<div class="d-flex align-items-center justify-content-start">
+																<div class="d-start fl-pic">
+																	<img class="img-fluid" src="/media/{{flight_classdetail.flightDetails.flight.flight_icon}}" width="45" alt="image">
+																</div>
+																<div class="d-end fl-title ps-2">
+																	<div class="text-dark fw-medium">{{flight_classdetail.flightDetails.flight.flight_name}}</div>
+																	<div class="text-sm text-muted">{{flight_classdetail.flightClass_name}}</div>																			
+																	<div class="text-sm text-muted"></div>
+																</div>
+															</div>
+														</div>
+
+														<div class="col">
+															<div class="row gx-3 align-items-center">
+																<div class="col-auto">
+																	<div class="text-dark fw-bold">{{flight_classdetail.flightDetails.flightDetails_return_departure_time}}</div>
+																	<div class="text-muted text-sm fw-medium">{{flight_classdetail.flightDetails.flightDetails_return_departure_place}}</div>
+																</div>
+
+																<div class="col text-center">
+																	<div class="flightLine return">
+																		<div></div>
+																		<div></div>
+																	</div>
+																	<div class="text-muted text-sm fw-medium mt-3">Direct</div>
+																</div>
+
+																<div class="col-auto">
+																	<div class="text-dark fw-bold">{{flight_classdetail.flightDetails.flightDetails_return_destination_time}}</div>
+																	<div class="text-muted text-sm fw-medium">{{flight_classdetail.flightDetails.flightDetails_return_destination_place}}</div>
+																</div>
+															</div>
+														</div>
+
+														<div class="col-md-auto">
+															<div class="text-dark fw-medium">{{flight_classdetail.flightDetails.flightDetails_return_timeperiod}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-auto">
+											<div class="d-flex items-center h-100">
+												<div class="d-lg-block d-none border br-dashed me-4"></div>
+												<div>
+													<div class="d-flex align-items-center justify-content-md-end mb-3">
+														<span class="square--20 rounded text-xs text-muted border me-2" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Free WiFi"><i
+																class="fa-solid fa-wifi"></i></span>
+														<span class="square--20 rounded text-xs text-muted border me-2" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Food Available"><i
+																class="fa-solid fa-utensils"></i></span>
+														<span class="square--20 rounded text-xs text-muted border me-2" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="One Cup Tea"><i
+																class="fa-solid fa-mug-saucer"></i></span>
+														<span class="square--20 rounded text-xs text-muted border" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Pet Allow"><i class="fa-solid fa-dog"></i></span>
+													</div>
+													<div class="text-start text-md-end">
+														{% if flight_detail.flightDetails_discount %}
+														<span class="label bg-light-success text-success me-1">{{flight_detail.flightDetails_discount}} Off </span>
+														{% endif %}														<div class="text-dark fs-3 fw-bold lh-base">{{flight_classdetail.flightClass_price}}</div>
+														
+														
+														{% comment %} <div class="text-muted text-sm mb-2">Refundable</div> {% endcomment %}
+													</div>
+
+													<div class="d-flex align-items-start align-items-md-end text-start text-md-end flex-column">
+														<a href="{% url 'flightDetailPage' flight_classdetail.flightClass_id %}" class="btn btn-md btn-primary full-width fw-medium px-lg-4">Flight Detail</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- ============================ Hotel Details End ================================== -->
+
+
+		
+
+{% endblock %}

@@ -1,0 +1,670 @@
+{% extends 'Admin_Base.html' %} {% block employee_title %} Department View {% endblock %}
+{% load static %} {% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <!--begin::Content wrapper-->
+    <div class="d-flex flex-column flex-column-fluid">
+        <!--begin::Toolbar-->
+        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+            <!--begin::Toolbar container-->
+            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                        View Resume</h1>
+                    <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">
+                            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">Resume Information</li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">View Resume</li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+
+            </div>
+            <!--end::Toolbar container-->
+        </div>
+        <!--end::Toolbar-->
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            {% for message in messages %}
+            <div id="msgdisplay" class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container container-xxl">
+                <!--begin::Category-->
+                <div class="card card-flush">
+                    <!--begin::Card header-->
+                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative my-1">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                <span class="svg-icon svg-icon-1 position-absolute ms-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                            transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                        <path
+                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                                <input type="text" data-kt-ecommerce-category-filter="search"
+                                    class="form-control form-control-solid w-250px ps-14"
+                                    placeholder="Search" />
+                            </div>
+                            <!--end::Search-->
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Card toolbar-->
+                        <div class="card-toolbar">
+                            <!--begin::Add customer-->
+                            <a href="{% url 'resumeAddPage' %}" class="btn btn-primary">Add Resume</a>
+                            <!--end::Add customer-->
+                        </div>
+                        <!--end::Card toolbar-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_category_table">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <!-- <th class="w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                                data-kt-check-target="#kt_ecommerce_category_table .form-check-input"
+                                                value="1" />
+                                        </div>
+                                    </th> -->
+                                    <!-- <th class="min-w-80px">ID</th> -->
+                                    <th class="w-150px pe-2"> Photo
+                                    </th>
+                                    <th class="min-w-150px">Name</th>
+                                    <th class="min-w-150px">Phone No.</th>
+                                    <th class="min-w-150px">Resume Education</th>
+                                    <th class="min-w-150px">Total Remaining Amount</th>
+                                    <th class="min-w-100px">Active</th>
+                                    <th class="text-end min-w-70px">Actions</th>
+                                  
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                {% for resumes in resume_view %}
+                                <!--begin::Table row-->
+                                <tr>
+                                    <td><img src="{{ resumes.resume_image }}" height="50px" width="50px"></td>
+                                    
+                                    <!--begin::Checkbox-->
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="ms-5">
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                                {{resumes.resume_full_name}}</a>
+                                            </div>
+                                        </div>
+                                    </td> 
+                                    <!--end::Checkbox-->
+                                    <!--begin::Category=-->
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="ms-5">
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                                {{resumes.resume_phone_no}}</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="ms-5">
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                                {{resumes.resume_education}}</a>
+                                            </div>
+                                        </div>
+                                    </td> 
+                                    <td>
+                                        <div class="text-muted fs-7 fw-bold">
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                                {{ resumes.resume_technical_skills }}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-muted fs-7 fw-bold">
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                            {{ resumes.resume_soft_skills}}</a>
+                                        </div>
+                                    </td>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!--end::Category=-->
+                                    <!--begin::Type=-->
+                                    <td>{% if resumes.resume_is_active == "On" %}
+                                        <!--begin::Badges-->
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input class="form-check-input w-45px h-30px" type="checkbox"
+                                                id="allowmarketing" checked="checked" />
+                                            <label class="form-check-label" for="allowmarketing"></label>
+                                        </div>
+                                        <!-- <div class="badge badge-light-success">Active</div> -->
+                                        {% else %}
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input class="form-check-input w-45px h-30px" type="checkbox"
+                                                id="allowmarketing" />
+                                            <label class="form-check-label" for="allowmarketing"></label>
+                                        </div>
+                                        <!-- <div class="badge badge-light-primary">Dactive</div> -->
+
+                                        <!--end::Badges-->
+                                        {% endif %}
+
+
+
+                                    </td>
+                                    <!--end::Type=-->
+                                    <!--begin::Action=-->
+                                    <td class="text-end">
+                                        <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                            <span class="svg-icon svg-icon-5 m-0">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                        fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                            <!--end::Svg Icon--></a>
+                                        <!--begin::Menu-->
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                            data-kt-menu="true">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3 resumeupdate">
+                                                <a href="" data-toggle="modal"
+                                                data-target="#resumedataupdate"
+                                                data-id = "{{ resumes.resume_id }}"
+                                                    class="menu-link px-3">Edit</a>
+                                                        
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3 deleterecord">
+                                                <a href="" data-id = "{{ resumes.resume_id }}"
+                                                    class="menu-link px-3 deleterecord">Delete</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                        </div>
+                                        <!--end::Menu-->
+                                    </td>
+                                    <!--end::Action=-->
+                                </tr>
+                                <!--end::Table row-->
+                                {% endfor %}
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Category-->
+            </div>
+            <!--end::Content container-->
+        </div>
+        <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
+</div>
+<!--end:::Main-->
+<div
+id="resumedataupdate"
+class="modal fade"
+tabindex="-1"
+role="dialog"
+aria-labelledby="myModalLabel"
+aria-hidden="true"
+style="display: none"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <form
+      id="updateresumeform"
+      method="POST"
+      action="{% url "resumeEditPage" %}"
+      enctype="multipart/form-data"
+    >
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+        </button>
+        <h4 class="modal-title">Resume Information</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Resume Image</label>
+                <img src="" class="img-responsive thumb-lg"
+                id="resumeimage" /><br>
+                <input type="file" class="form-control-file" name="resumeimage"/>
+              </div>
+            </div>
+          </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="field-3" class="control-label">Full Name</label>
+              <input type="text" class="form-control" id="fullname"
+                placeholder="Enter Full Name" name="fullname" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Email Id</label>
+                <input type="text" class="form-control" id="email"
+                  placeholder="Enter Email Id" name="email" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Headline</label>
+                <input type="text" class="form-control" id="headline"
+                  placeholder="Enter Headline" name="headline" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Phone No</label>
+                <input type="text" class="form-control" id="phoneno"
+                  placeholder="Enter Phone No" name="phoneno" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Address</label>
+                <input type="text" class="form-control" id="address"
+                  placeholder="Enter Address" name="address" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Full Name</label>
+                <input type="text" class="form-control" id="fullname"
+                  placeholder="Enter Full Name" name="fullname" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">City</label>
+                <input type="text" class="form-control" id="city"
+                  placeholder="Enter City" name="city" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Education</label>
+                <input type="text" class="form-control" id="education"
+                  placeholder="Enter Education" name="education" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">School</label>
+                <input type="text" class="form-control" id="school"
+                  placeholder="Enter School" name="school" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Date</label>
+                <input type="text" class="form-control" id="educationdate"
+                  placeholder="Enter Date" name="educationdate" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Description</label>
+                <input type="text" class="form-control" id="educationdescription"
+                  placeholder="Enter Description" name="educationdescription" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Technical Skills</label>
+                <input type="text" class="form-control" id="technicalskills"
+                  placeholder="Enter Technical Skills" name="technicalskills" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Soft Skills</label>
+                <input type="text" class="form-control" id="softskills"
+                  placeholder="Enter Soft Skills" name="softskills" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Language</label>
+                <input type="text" class="form-control" id="language"
+                  placeholder="Enter Language" name="language" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="field-3" class="control-label">Hobby</label>
+                <input type="text" class="form-control" id="hobby"
+                  placeholder="Enter Hobby" name="hobby" />
+              </div>
+            </div>
+          </div>
+          
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="act">Activation Status</label>
+              <br />
+              <input
+                class="form-check-input"
+                type="radio"
+                name="resumedisable"
+                id="resumeactivate_yes"
+                value="1"
+              />
+              Active &nbsp;&nbsp;&nbsp;
+              <input
+                class="form-check-input"
+                type="radio"
+                name="resumedisable"
+                value="0"
+                id="resumeactivate_no"
+              />
+              Inactive
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-default waves-effect"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-info waves-effect waves-light resumesavechanges"
+          data-id=""
+        >
+          Save changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal fade" id="alertbox" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="thank-you-pop">
+                    <!-- <img src="<?php echo base_url() . "assets/frontend/images/Green-Round-Tick.png"; ?>" alt=""> -->
+                    <h1 id="msg"></h1>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Wrong Modal -->
+<div class="modal fade" id="wrongbox" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="thank-you-pop">
+                    <!-- <img src="<?php echo base_url() . "assets/frontend/images/wrong.png"; ?>" alt=""> -->
+                    <h1 id="wrong"></h1>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(document).on('click', '.resumeupdate', function () {
+            var resume_id = $(this).attr("data-id");
+            
+            $.ajax({
+                url: "{% url 'resumeFetchPage' %}",
+                method: "POST",
+                data: {
+                    resume_id: resume_id,
+                    csrfmiddlewaretoken: window.CSRF_TOKEN
+                },
+                success: function (data) {
+                    console.log(data)
+                    $.each(data, function (key, value) {
+                        console.log(value[0].main_category_image)
+
+                        $('#fullname').val(value[0].resume_full_name);
+                        $('#phoneno').val(value[0].resume_phone_no);
+                        $('#resumeimage').attr("src", value[0].resume_image);
+                        $('#email').val(value[0].resume_email);
+                        $('#headline').val(value[0].resume_headline);
+                        $('#address').val(value[0].resume_address);
+                        $('#city').val(value[0].resume_city);
+                        $('#education').val(value[0].resume_education);
+                        $('#school').val(value[0].resume_school);
+                        $('#educationdate').val(value[0].resume_date);
+                        $('#educationdescription').val(value[0].resume_description);
+                        $('#technicalskills').val(value[0].resume_technical_skills);
+                        $('#softskills').val(value[0].resume_soft_skills);
+                        $('#language').val(value[0].resume_language);
+                        $('#hobby').val(value[0].resume_hobby);
+                        $('#resumeimage').attr("src", value[0].resume_project_image);
+
+
+                        if (value[0].resume_is_active == 1) {
+                            $('#resumeactivate_yes').prop("checked", true);
+                        } else {
+                            $('#resumeactivate_no').prop("checked", true);
+                        }
+                        $('.resumesavechanges').attr('data-id', value[0]['resume_id']);
+                    });
+
+                }
+            });
+        });
+
+
+        $(document).on('click', '.resumesavechanges', function () {
+            var resumefetchdata = $(this).attr('data-id');
+            var data = new FormData(document.getElementById('updateresumeform'));
+
+            data.append("resumefetchdata", resumefetchdata);
+
+            // console.log($('#mainCategoryImg').attr('src'));
+
+            data.append("oldresumeimage", $('#resumeimage').attr('src'));
+            data.append("oldresumeprojectimage", $('#resumeprojectimage').attr('src'));
+            data.append("csrfmiddlewaretoken", window.CSRF_TOKEN)
+
+            $.ajax({
+                url: "{% url 'resumeEditPage' %}",
+                method: "POST",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 800000,
+                success: function (data) {
+
+
+                    $("#resumedataupdate").modal("hide");
+
+                    if (data == '1') {
+                        $("#alertbox").modal("show");
+
+                        $("#msg").text("Record is updated");
+
+                    } else {
+                        $("#wrongbox").modal("show");
+
+                        $("#wrong").text(data);
+                    }
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+
+                }
+            });
+        });
+
+
+        $(document).on('click', '.deleterecord', function () {
+            var resumedeletedata = $(this).attr("data-id");
+            $.ajax({
+                url: "{% url 'resumeDeletePage' %}",
+                method: "POST",
+                data: {
+                    resumedeletedata: resumedeletedata,
+                    csrfmiddlewaretoken: window.CSRF_TOKEN
+                },
+                dataType: "json",
+                success: function (data) {
+
+                    if (data == '1') {
+                        $("#alertbox").modal("show");
+                        $("#msg").text("Record deleted!");
+
+                    } else {
+                        $("#wrongbox").modal("show");
+                        $("#wrong").text("Something goes wrong!");
+
+                    }
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 6000);
+                }
+            });
+        });
+
+
+
+
+        $("#datatable").dataTable();
+        $("#datatable-keytable").DataTable({ keys: true });  //This allows users to navigate through the table using keyboard shortcuts.
+        $("#datatable-responsive").DataTable();   //  DataTable, which adapts to different screen sizes by showing/hiding columns as necessary.
+        $("#datatable-colvid").DataTable({
+            dom: 'C<"clear">lfrtip',
+            colVis: {
+                buttonText: "Change columns",
+            },
+        });
+        $("#datatable-scroller").DataTable({
+            ajax: "{% static 'admin_assets/assets/plugins/datatables/json/scroller-demo.json' %}",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true,
+        });
+        var table = $("#datatable-fixed-header").DataTable({
+            fixedHeader: true,
+        });
+        var table = $("#datatable-fixed-col").DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1,
+            },
+        });
+    });
+    TableManageButtons.init();
+</script>
+{% endblock %}

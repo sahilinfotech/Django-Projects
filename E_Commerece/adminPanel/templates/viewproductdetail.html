@@ -1,0 +1,392 @@
+{% extends 'admin_base.html' %} {% block admin_title %}View Sub Category{% endblock %}
+{% load static %} {% block admin_bodyblock %}
+<div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+      <div class="container">
+        <!-- Page-Title -->
+        <div class="row">
+          {% for message in messages %}
+        <div class ="alert {{ message.tags }} alert dismissible" role="alert">
+          <strong>Message:</strong>{{ message }}
+        </div>
+        {% endfor %}
+          <div class="col-sm-12">
+            <h4 class="page-title">View Product Detail</h4>
+            <ol class="breadcrumb">
+              <li>
+                <a href="#">Product Detail</a>
+              </li>
+              <li>
+                <a href="#">Tables</a>
+              </li>
+              <li class="active">View Product Detail</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card-box table-responsive">
+              <h4 class="m-t-0 header-title"><b>View Product Detail</b></h4>
+
+              <table
+                id="datatable-buttons"
+                class="table table-striped table-bordered"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Product Colour</th>
+
+                    <th>Status</th>
+                    <th>Created at</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                    {% for viewdataProductdetail in view_Productdetail %}
+                  <tr>
+                    <td>{{ viewdataProductdetail.id }}</td>
+                    <td>{{ viewdataProductdetail.Product.Product_name }}</td>
+                    <td>{{ viewdataProductdetail.Productdetail_description }}</td>
+                    <td>{{ viewdataProductdetail.Productdetail_type }}</td>
+                    <td>{{ viewdataProductdetail.Productdetail_colour }}</td>
+
+                    <td>
+                      {% if viewdataProductdetail.Productdetail_is_active %}
+                      <span class="label label-table label-success">Active</span>
+                      {% else %}
+
+                      <span class="label label-table label-inverse">Inactive</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ viewdataProductdetail.Productdetail_created_at }}</td>
+                    <td class="actions">
+                      <a
+                        href=""
+                        class="on-default edit-row updateproductdetaildata"
+                        data-toggle="modal"
+                        data-target="#updateProductdetail"
+                        data-id="{{ viewdataProductdetail.id }}"
+                        ><i class="fa fa-pencil"></i
+                      ></a>
+                      <a
+                        href=""
+                        class="on-default remove-row deleterecord"
+                        data-id="{{ viewdataProductdetail.id }}"
+                        ><i class="fa fa-trash-o"></i
+                      ></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- end row -->
+      </div>
+      <!-- container -->
+    </div>
+    <!-- content -->
+
+    <div
+      id="updateProductdetail"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      style="display: none"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form
+            id="updateformProductdetail"
+            method="POST"
+            action=""
+            enctype="multipart/form-data"
+          >
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+              </button>
+              <h4 class="modal-title">Product Detail Information</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="productNameselect"
+                      >Product Name</label>
+                    <select
+                      class="form-control"
+                      name="productNameselect"
+                      id="productNameselect"
+                    >
+                    {% for productdatadisplay in productdataview %}
+                    <option value="{{ productdatadisplay.Product_name }}">{{ productdatadisplay.Product_name }}</option>
+                    {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="productdetailDescription">Product Detail Description*</label>
+                    <input
+                      type="text"
+                      name="productdetailDescription"
+                      placeholder="Enter Product Detail Description"
+                      class="form-control"
+                      id="productdetailDescription"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="productdetailType">Product Detail Type*</label>
+                    <input
+                      type="text"
+                      name="productdetailType"
+                      placeholder="Enter Product Detail Type"
+                      class="form-control"
+                      id="productdetailType"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="productdetailColour">Product Detail Colour*</label>
+                    <input
+                      type="text"
+                      name="productdetailColour"
+                      placeholder="Enter Product Detail Colour"
+                      class="form-control"
+                      id="productdetailColour"
+                    />
+                  </div>
+                </div>
+
+              </div>
+              
+              
+                            
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="act">Activation Status</label>
+                    <br />
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="productdetailActive"
+                      id="productdetailactivate_yes"
+                      value="1"
+                    />
+                    Active &nbsp;&nbsp;&nbsp;
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="productdetailActive"
+                      value="0"
+                      id="productdetailactivate_no"
+                    />
+                    Inactive
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default waves-effect"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-info waves-effect waves-light productdetailsavechanges"
+                data-id=""
+              >
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+   <!-- /.modal -->
+  <div class="modal fade" id="alertbox" role="dialog"> 
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label=""><span></span></button> 
+        </div>
+        <div class="modal-body">
+          <div class="thank-you-pop">
+            <!-- <img src="<?php echo base_url(). "assets/frontend/images/Green-Round-Tick.png"; ?>" alt=""> -->
+            <h1 id="msg"></h1>
+          </div>
+        </div> 
+        <div class="modal-footer" > 
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button >
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% comment %} Wrong-Modal {% endcomment %}
+
+<div class="modal fade" id="wrongbox" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label=""><span></span></button> 
+      </div>
+      
+      <div class="modal-body">
+        <div class="thank-you-pop">
+          <!--<img src="<?php echo base_url(). "assets/frontend/images/wrong.png"; ?>" alt=""> -->
+          <h1 id="wrong"></h1>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+  <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+
+  <script type="text/javascript">
+  
+    $(document).on('click', '.updateproductdetaildata', function() {
+      var productdetail_id = $(this).attr("data-id");
+      $.ajax({
+          url: "{% url 'productdetailFetchPage' %}",
+          method: "POST",
+          data: {
+              productdetail_id: productdetail_id,
+              csrfmiddlewaretoken: window.CSRF_TOKEN
+          },
+          success: function(data) {
+              var value = data.productdetaillist[0];
+              $('#productdetailDescription').val(value.Productdetail_description);
+              $('#productdetailType').val(value.Productdetail_type);
+              $('#productdetailColour').val(value.Productdetail_colour);
+              $("#productNameselect").val(data.productdetaillist[1].Product_name_).attr("selected","selected");
+              if (value.Productdetail_is_active) {
+                  $('#productdetailactivate_yes').prop("checked", true);
+              } else {
+                  $('#productdetailactivate_no').prop("checked", true);
+              }
+              $('.productdetailsavechanges').attr('data-id', value.id);
+          }
+      });
+  });
+  
+  $(document).on('click', '.productdetailsavechanges', function() {
+      var productdetail_id = $(this).attr('data-id');
+      var data = new FormData(document.getElementById('updateformProductdetail'));
+      data.append("productdetail_id", productdetail_id);
+      data.append("csrfmiddlewaretoken", window.CSRF_TOKEN);
+  
+      $.ajax({
+          url: "{% url 'productdetailEditPage' %}",
+          method: "POST",
+          data: data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          timeout: 800000,
+          success: function(data) {
+              $("#updateProductdetail").modal("hide");
+              if (data == '1') {
+                  $("#alertbox").modal("show");
+                  $("#msg").text("Record is updated");
+              } else {
+                  $("#wrongbox").modal("show");
+                  $("#wrong").text(data);
+              }
+              setTimeout(function() {
+                  location.reload();
+              }, 1000);
+          }
+      });
+  });
+  
+  
+  $(document).on('click', '.deleterecord', function() {
+    var productdetail_id = $(this).attr("data-id");
+    $.ajax({
+      url: "{% url 'productdetailDeletePage' %}",
+      method: "POST",
+      data: {
+        productdetail_id: productdetail_id,
+        csrfmiddlewaretoken: window.CSRF_TOKEN
+      },
+      dataType: "json",
+      success: function(data) {
+        if (data == '1') {
+          $("#alertbox").modal("show");
+          $("#msg").text("Record deleted!");
+        } else {
+          $("#wrongbox").modal("show");
+          $("#wrong").text("Something goes wrong!");
+        }
+        setTimeout(function() {
+          location.reload();
+        }, 1000);
+      }
+    });
+  });
+  $("#datatable").dataTable();
+  $("#datatable-keytable").DataTable({ keys: true });
+  $("#datatable-responsive").DataTable();
+  $("#datatable-colvid").DataTable({
+    dom: 'C<"clear">lfrtip',
+    colVis: {
+      buttonText: "Change columns",
+    },
+  });
+  $("#datatable-scroller").DataTable({
+    ajax: "{% static 'admin_assets/assets/plugins/datatables/json/scroller-demo.json' %}",
+    deferRender: true,
+    scrollY: 380,
+    scrollCollapse: true,
+    scroller: true,
+  });
+  var table = $("#datatable-fixed-header").DataTable({
+    fixedHeader: true,
+  });
+  var table = $("#datatable-fixed-col").DataTable({
+    scrollY: "300px",
+    scrollX: true,
+    scrollCollapse: true,
+    paging: false,
+    fixedColumns: {
+    leftColumns: 1,
+    rightColumns: 1,
+  },
+});
+    TableManageButtons.init();
+  </script>
+
+{% endblock %}

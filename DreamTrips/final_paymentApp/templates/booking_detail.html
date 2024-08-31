@@ -1,0 +1,423 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+
+
+		<!-- ============================ Booking Page ================================== -->
+		<section class="pt-4 gray-simple position-relative">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-xl-12 col-lg-12 col-md-12">
+						<div id="stepper" class="bs-stepper stepper-outline mb-5">
+							<div class="bs-stepper-header">
+								<!-- Step 1 -->
+								<div class="step completed" data-target="#step-1">
+									<div class="text-center">
+										<button type="button" class="step-trigger mb-0" id="steppertrigger1">
+											<span class="bs-stepper-circle"><i class="fa-solid fa-check"></i></span>
+										</button>
+										<h6 class="bs-stepper-label d-none d-md-block">Tour Review</h6>
+									</div>
+								</div>
+								<div class="line"></div>
+
+								<!-- Step 2 -->
+								<div class="step active" data-target="#step-2">
+									<div class="text-center">
+										<button type="button" class="step-trigger mb-0" id="steppertrigger2">
+											<span class="bs-stepper-circle">2</span>
+										</button>
+										<h6 class="bs-stepper-label d-none d-md-block">Traveler Info</h6>
+									</div>
+								</div>
+								<div class="line"></div>
+
+								<!-- Step 3 -->
+								<div class="step" data-target="#step-3">
+									<div class="text-center">
+										<button type="button" class="step-trigger mb-0" id="steppertrigger3">
+											<span class="bs-stepper-circle">3</span>
+										</button>
+										<h6 class="bs-stepper-label d-none d-md-block">Make Payment</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row align-items-start">
+					<div class="col-xl-12 col-lg-12 col-md-12">
+						<div class="div-title d-flex align-items-center mb-3">
+							<h4>Guests Detail</h4>
+						</div>
+						<div class="row align-items-start">
+							<div class="col-xl-8 col-lg-8 col-md-12">
+							<form id="myForm" action = "{% url 'bookingDetailPage' %}" method = "POST">{% csrf_token %}
+								
+								
+								<div class="card mb-3">
+									<div class="card-header">
+										<h4>Guest</h4>
+									</div>
+									<div class="card-body">
+										<div class="row">
+
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">First Name</label>
+													<input type="text" id = "userGuestFirstName" name = "userGuestFirstName" class="form-control" placeholder="First Name" required = "required">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Last Name</label>
+													<input type="text" id = "userGuestLastName" name = "userGuestLastName" class="form-control" placeholder="Last Name" required = "required">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Date of Birth</label>
+													<input type="date" id = "userGuestDateOfBirth" name = "userGuestDateOfBirth" class="form-control" required = "required">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Passport Number</label>
+													<input type="text" id = "userGuestPassportNumber" name = "userGuestPassportNumber" placeholder="Passport Number" class="form-control" required = "required">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Passport Expire</label>
+													<input type="date" id = "userGuestPassportExpire" name = "userGuestPassportExpire" class="form-control" required = "required">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Nationality</label>
+													<input type="text" id = "userGuestNationality" name = "userGuestNationality" class="form-control" placeholder="Nationality" required = "required">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												
+												<div class="form-group">
+													<label class="form-label">Gender</label>
+													<div class="form-group">
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio" name="userGuestGender" id="userGuestGender" value="male" required = "required">
+															<label class="form-check-label" for="userGuestGender">Male</label>
+														</div>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio" name="userGuestGender" id="userGuestGender" value="female" required = "required">
+															<label class="form-check-label" for="userGuestGender">Female</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="text-center d-flex align-items-center justify-content-center mt-4">
+												<button type="submit" id="addMemberButton"  class="btn btn-md btn-dark fw-semibold mx-2">Add Member/ Submit</button>
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</form>
+
+								{% comment %} <div class="card mb-3">
+									<div class="card-header">
+										<h4>Guest 02</h4>
+									</div>
+									<div class="card-body">
+										<div class="row">
+
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">First Name</label>
+													<input type="text" class="form-control" placeholder="First Name">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Last Name</label>
+													<input type="text" class="form-control" placeholder="Last Name">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Date of Birth</label>
+													<input type="date" class="form-control fw-semibold text-muted">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Passport Number</label>
+													<input type="text" class="form-control" placeholder="Passport Number">
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="card mb-3">
+									<div class="card-header">
+										<h4>Guest 03</h4>
+									</div>
+									<div class="card-body">
+										<div class="row">
+
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">First Name</label>
+													<input type="text" class="form-control" placeholder="First Name">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Last Name</label>
+													<input type="text" class="form-control" placeholder="Last Name">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Date of Birth</label>
+													<input type="date" class="form-control">
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-6">
+												<div class="form-group">
+													<label class="form-label">Passport Number</label>
+													<input type="text" class="form-control" placeholder="Passport Number">
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div> {% endcomment %}
+
+							</div>
+
+							<div class="col-xl-4 col-lg-4 col-md-12">
+								<div class="side-block card rounded-2 p-3">
+									<h5 class="fw-semibold fs-6">Reservation Summary</h5>
+									<div class="mid-block rounded-2 border br-dashed p-2 mb-3">
+										<div class="row align-items-center justify-content-between g-2 mb-4">
+											<div class="col-6">
+												<div class="gray rounded-2 p-2">
+													<span class="d-block text-muted-3 text-sm fw-medium text-uppercase mb-2">Check-In</span>
+													<p class="text-dark fw-semibold lh-base text-md mb-0">{{ flight.flightDetails.flightDetails_date }}</p>
+													<span class="text-dark text-md">From {{ flight.flightDetails.flightDetails_departure_time }}</span>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="gray rounded-2 p-2">
+													<span class="d-block text-muted-3 text-sm fw-medium text-uppercase mb-2">Check-Out</span>
+													<p class="text-dark fw-semibold lh-base text-md mb-0">{{ flight.flightDetails.flightDetails_return_date }}</p>
+													<span class="text-dark text-md">By {{ flight.flightDetails.flightDetails_return_departure_time}}</span>
+												</div>
+											</div>
+										</div>
+										<div class="row align-items-center justify-content-between mb-4">
+											<div class="col-12">
+												<p class="text-muted-2 text-sm text-uppercase fw-medium mb-1">Total Length of Stay:</p>
+												<div class="d-flex align-items-center">
+													<div class="square--30 circle text-seegreen bg-light-seegreen"><i
+															class="fa-regular fa-calendar"></i></div>
+															<span class="text-dark fw-semibold ms-2">{{ stay_duration }} Days \ {{ stay_duration_night }} Nights</span>
+												</div>
+											</div>
+										</div>
+										{% comment %} <div class="row align-items-center justify-content-between">
+											<div class="col-12">
+												<p class="text-muted-2 text-sm text-uppercase fw-medium mb-1">You Selected</p>
+												<div class="d-flex align-items-center flex-column">
+													<p class="mb-0">King Bed Appolo Resort with 3 Rooms. <a href="#"
+															class="fw-medum text-primary">Change your Selection</a></p>
+												</div>
+											</div>
+										</div> {% endcomment %}
+									</div>
+		
+									<div class="bott-block d-block mb-3">
+										<h5 class="fw-semibold fs-6">Your Price Summary</h5>
+										<ul class="list-group list-group-borderless">
+											<li class="list-group-item d-flex justify-content-between align-items-center">
+												<span class="fw-medium mb-0">Tour Price</span>
+												{% for stay in destination_stay %}
+													<span class="fw-semibold">{{ stay.Destinationstay_price }}</span>
+												{% endfor %}
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center">
+												<span class="fw-medium mb-0">Flight Price</span>
+													<span class="fw-semibold">{{ flight.flightClass_price }}</span>
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center">
+												<span class="fw-medium mb-0">Hotel Price</span>
+													<span class="fw-semibold">{{ hotel.destinationHotel_hotel_price }}</span>
+											</li>
+											{% comment %} <li class="list-group-item d-flex justify-content-between align-items-center">
+												<span class="fw-medium mb-0">Total Discount<span
+														class="badge rounded-1 text-bg-danger smaller mb-0 ms-2">10% off</span></span>
+												<span class="fw-semibold">-$7.50</span>
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center">
+												<span class="fw-medium mb-0">8% Taxes % Fees</span>
+												<span class="fw-semibold">$10.10</span>
+											</li> {% endcomment %}
+											<li class="list-group-item d-flex justify-content-between align-items-center">
+												<span class="fw-medium text-success mb-0">Total Price</span>
+												<span class="fw-semibold text-success">{{ current_total_price }}</span>
+											</li>
+										</ul>
+									</div>
+									<div class="bott-block">
+										<button type="button" onclick="window.location.href='{% url 'bookingPaymentPage' %}'" id="paymentButton" class="btn fw-medium btn-primary full-width">
+											Request To Book
+										</button>									
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-xl-12 col-lg-12 col-md-12">
+						<div class="text-center d-flex align-items-center justify-content-center mt-4">
+							<a href="{% url 'indexPage' %}" class="btn btn-md btn-dark fw-semibold mx-2"><i
+									class="fa-solid fa-arrow-left me-2"></i>Book Your Start</a>
+							<button type="button" onclick="window.location.href='{% url 'bookingPaymentPage' %}'" id="makePaymentLink" class="btn btn-md btn-primary fw-semibold mx-2">
+								Make Your Payment
+								<i class="fa-solid fa-arrow-right ms-2"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- ============================ Booking Page End ================================== -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+				// Initially disable payment buttons and addMemberButton
+				$('#makePaymentLink').prop('disabled', true);
+				$('#paymentButton').prop('disabled', true);
+				$('#addMemberButton').prop('disabled', true); // Initially disabled
+		
+				// Check if member is already added
+				var memberAdded = localStorage.getItem('memberAdded');
+				if (memberAdded === 'true') {
+					$('#makePaymentLink').prop('disabled', false);
+					$('#paymentButton').prop('disabled', false);
+
+				}
+		
+				// Function to check if all required fields are filled
+				function checkRequiredFields() {
+					var allFilled = true;
+					$('input[required]').each(function() {
+						if ($(this).val().trim() === '') {
+							allFilled = false;
+							return false; // Break the loop if any required field is empty
+						}
+					});
+					// Check if gender is selected
+					if (!$('input[name="userGuestGender"]:checked').val()) {
+						allFilled = false;
+					}
+					return allFilled;
+				}
+		
+				// Enable addMemberButton based on input fields
+				$('input[required]').on('input', function() {
+					if (checkRequiredFields()) {
+						$('#addMemberButton').prop('disabled', false);
+					} else {
+						$('#addMemberButton').prop('disabled', true);
+					}
+				});
+		
+				// Enable payment buttons on addMemberButton click
+				$('#addMemberButton').on('click', function() {
+					if (checkRequiredFields()) {
+						$('#makePaymentLink').prop('disabled', false);
+						$('#paymentButton').prop('disabled', false);
+						$('#addMemberButton').prop('disabled', true); // Disable addMemberButton after enabling payment buttons
+						localStorage.setItem('memberAdded', 'true'); // Set flag in localStorage
+						$('#myForm').submit();
+					}
+				});
+			});
+		</script>
+		
+		
+		{% comment %} <script>
+			$(document).ready(function() {
+				// Initially disable payment buttons and addMemberButton
+				$('#makePaymentLink').prop('disabled', true);
+				$('#paymentButton').prop('disabled', true);
+				$('#addMemberButton').prop('disabled', true); // Initially disabled
+		
+				// Function to check if all required fields are filled
+				function checkRequiredFields() {
+					var allFilled = true;
+					$('input[required]').each(function() {
+						if ($(this).val().trim() === '') {
+							allFilled = false;
+							return false; // Break the loop if any required field is empty
+						}
+					});
+					// Check if gender is selected
+					if (!$('input[name="userGuestGender"]:checked').val()) {
+						allFilled = false;
+					}
+					return allFilled;
+				}
+		
+				// Enable addMemberButton based on input fields
+				$('input[required]').on('input', function() {
+					if (checkRequiredFields()) {
+						$('#addMemberButton').prop('disabled', false);
+					} else {
+						$('#addMemberButton').prop('disabled', true);
+					}
+				});
+		
+				// AJAX function to submit form data
+				function submitFormData(formData) {
+					$.ajax({
+						type: 'POST',
+						url: '{% url "bookingDetailPage" %}',
+						data: formData,
+						success: function(response) {
+							// Enable payment buttons on successful form submission
+							$('#makePaymentLink').prop('disabled', false);
+							$('#paymentButton').prop('disabled', false);
+							$('#addMemberButton').prop('disabled', true);
+							window.location.reload(true);
+						},
+						
+						error: function(xhr, status, error) {
+							// Handle errors if any
+							console.error(xhr.responseText);
+						}
+					});
+				}
+		
+				// Enable payment buttons on addMemberButton click
+				$('#addMemberButton').on('click', function(e) {
+					e.preventDefault(); // Prevent default form submission
+					if (checkRequiredFields()) {
+						var formData = $('form').serialize(); // Serialize form data
+						submitFormData(formData); // Call AJAX function to submit data
+					}
+				});
+			});
+		</script> {% endcomment %}
+		
+		
+		
+{% endblock %}

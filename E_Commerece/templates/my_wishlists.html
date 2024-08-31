@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+
+<!-- Start Page Title Area -->
+<div class="page-title-area">
+    <div class="container">
+        <ul>
+            <li><a href="{% url 'productPage' %}">Home</a></li>
+            <li>My Wishlist</li>
+        </ul>
+    </div>
+</div>
+<!-- End Page Title Area -->
+
+<!-- Start Wishlist Area -->
+<section class="wishlist-area ptb-60">
+    <div class="container">
+        <div class="wishlist-table table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Colour</th>
+                        <th scope="col">Product Type</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Stock Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for productdetail in productdetailfetchdata %}
+                    <tr>
+                        <td class="product-thumbnail">
+                            <a href="#">
+                                <img src="/{{ productdetail.Product.Product_image }}" alt="image">
+                            </a>
+                        </td>
+
+                        <td class="product-name">
+                            <a href="#">{{ productdetail.Product.Product_name }}</a>
+                        </td>
+
+                        <td class="product-description">
+                            {{ productdetail.Productdetail_description }}
+                        </td>
+
+                        <td class="product-colour">
+                            {{ productdetail.Productdetail_colour }}
+                        </td>
+
+                        <td class="product-type">
+                            {{ productdetail.Productdetail_type }}
+                        </td>
+
+                        <td class="product-price">
+                            <span class="unit-amount">₹ {{ productdetail.Product.Product_price }}</span>
+                        </td>
+
+                        <td class="product-stock-status">
+                            {% if productdetail.Product.Product_is_active %}
+                            <span class="badge badge-success">In Stock</span>
+                            {% else %}
+                            <span class="badge badge-danger">Out of Stock</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="product-action">
+                            {% comment %} <a href="{% url 'removefromwishlistPage' %}" class="remove"><i class="far fa-trash-alt"></i></a> {% endcomment %}
+                            <a href="{% url 'removefromwishlistPage' productdetail.Product.id %}" class="btn btn-primary"><i class="far fa-trash-alt"></i> Remove to Cart</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">Your wishlist is empty.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- End Wishlist Area -->
+
+{% endblock %}

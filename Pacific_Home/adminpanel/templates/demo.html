@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Form</title>
+</head>
+
+<body>
+
+    <h1>Client Information</h1>
+</head>
+
+    <form >
+
+        <label for="client_bangalow_no">Bangalow Number:</label>
+        <input type="text" id="client_bangalow_no" name="client_bangalow_no" required>
+
+        <label for="client_phone_no">Phone Number:</label>
+        <input type="tel" id="client_phone_no" name="client_phone_no" required>
+
+        <label for="client_first_name">First Name:</label>
+        <input type="text" id="client_first_name" name="client_first_name" required>
+
+        <label for="client_last_name">Last Name:</label>
+        <input type="text" id="client_last_name" name="client_last_name" required>
+
+        <label for="client_email_id">Email ID:</label>
+        <input type="email" id="client_email_id" name="client_email_id" required>
+        <label for="client_aadhar_card_no">Aadhar Card Number:</label>
+        <input type="text" id="client_aadhar_card_no" name="client_aadhar_card_no" required>
+
+        <label for="client_pan_card_no">Pan Card Number:</label>
+        <input type="text" id="client_pan_card_no" name="client_pan_card_no" required>
+
+        <label for="client_total_price">Total Price:</label>
+        <input type="text" id="client_total_price" name="client_total_price" oninput="calculateRemainingPrice()" required>
+
+        <label for="client_amount_mode">Amount Mode:</label>
+        <input type="text" id="client_amount_mode" name="client_amount_mode" required>
+
+        <label for="client_transition">Transition:</label>
+        <input type="text" id="client_transition" name="client_transition" required>
+
+        <label for="client_token_payment">Token Payment:</label>
+        <input type="text" id="client_token_payment" name="client_token_payment" oninput="calculateRemainingPrice()"required>
+
+        <label for="client_total_remaining_amount">Total Remaining Amount:</label>
+        <input type="text" id="client_total_remaining_amount" name="client_total_remaining_amount" required>
+
+        <label for="client_time_period">Time Period:</label>
+        <input type="text" id="client_time_period" name="client_time_period" required>
+
+        <label for="client_monthly_amount">Monthly Amount:</label>
+        <input type="text" id="client_monthly_amount" name="client_monthly_amount" required>
+
+        <label for="client_date">Date:</label>
+        <input type="date" id="client_date" name="client_date" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+<body>
+
+
+</body>
+</html>
+
+    <script>
+        function calculateRemainingPrice() {
+            // Get values from input fields
+            var totalPrice = parseFloat(document.getElementById('client_total_price').value) || 0;
+            var tokenPrice = parseFloat(document.getElementById('client_token_payment').value) || 0;
+            // Calculate remaining price
+            var remainingPrice = totalPrice - tokenPrice;
+            // Update the remainingPrice field
+            document.getElementById('client_total_remaining_amount').value = remainingPrice.toFixed(2);
+        }
+    </script>
+</body>
+</html>

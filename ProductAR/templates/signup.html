@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+       
+        <!-- Start Page Title Area -->
+        <div class="page-title-area">
+            <div class="container">
+                {% comment %} <ul>
+                    <li><a href="#">Home</a></li>
+                    <li>Signup</li>
+                </ul> {% endcomment %}
+            </div>
+        </div>
+        <!-- End Page Title Area -->
+
+        <!-- Start SignUP Area -->
+        <section class="signup-area ptb-60">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="section-title">
+                        <h2><span class="dot"></span> Create an Account</h2>
+                    </div>
+
+                    <form class="signup-form" method="POST" action="{% url 'signUpPage' %}">{% csrf_token %}
+
+                        {% if error != '' %}
+
+                            <div class="alert bg-danger alert-dismissible" role="alert">
+                                <strong>Message:</strong> {{ error }}
+                            </div>
+
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Your First Name" id="userFirstName" name="userFirstName" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Your Last Name" id="userLastName" name="userLastName" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mobile</label>
+                            <input type="tel" class="form-control" placeholder="Enter Your Mobile Number" id="userPhoneNo" name="userPhoneNo" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Your Username" id="userName" name="userName" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="Enter Your Email" id="userEmail" name="userEmail" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Enter Your Password" id="userPassword" name="userPassword" required="required">
+                        </div>
+
+                        <button type="submit" id = "submit" name = "submit" class="btn btn-primary">Signup</button>
+
+                        <a href="{% url 'loginPage' %}" class="return-store">Login</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- End SignUP Area -->
+
+
+        
+        
+
+{% endblock %}

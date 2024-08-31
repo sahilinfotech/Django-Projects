@@ -1,0 +1,268 @@
+{% extends 'Admin_base.html' %} 
+{% load static %} 
+{% block admin_bodyblock %}
+<!--begin::Main-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Patient Medicine Details Form</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="{% url 'dashboardPage' %}" class="text-muted text-hover-primary">Admin Side</a>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Medicine</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::Item-->
+						<!--begin::Item-->
+						<li class="breadcrumb-item text-muted">Add Patient Medicine Details</li>
+						<!--end::Item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			{% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <strong>Message:</strong> {{ message }}
+            </div>
+            {% endfor %}
+			<!--begin::Content container-->	
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Form-->
+				<form action="{% url 'patientdetailAddPage' %}" enctype="multipart/form-data" method="post" data-parsley-validate novalidate class="form d-flex flex-column flex-lg-row">{% csrf_token %}	
+					
+					<!--begin::Main column-->
+					<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+						<!--begin::Tab content-->
+						<div class="tab-content">
+							<!--begin::Tab pane-->
+							<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+								<div class="d-flex flex-column gap-7 gap-lg-10">
+									<!--begin::Add Patient Medicine Details options-->
+									<div class="card card-flush py-4">
+										<!--begin::Card header-->
+										<div class="card-header">
+											<div class="card-title">
+												<h2>Patient Medicine Details Information</h2>
+											</div>
+										</div>
+										<!--end::Card header-->
+										<!--begin::Card body-->
+										<div class="card-body pt-0">
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patientdetailName" class="required form-label">Patient Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patientdetailName" name="patientdetailName" class="form-control mb-2" placeholder="Patient Name" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<span class="errormsgname" style="color:red"></span>
+												{% comment %} <div class="text-muted fs-7">A Patient Name is required </div> {% endcomment %}
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patientdetailMobileNo" class="required form-label">Patient Mobile Number</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patientdetailMobileNo" name="patientdetailMobileNo" class="form-control mb-2" placeholder="Patient Mobile Number" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<span class="errormsgmobile" style="color:red"></span>
+												{% comment %} <div class="text-muted fs-7">A Patient Mobile Number is required </div> {% endcomment %}
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10 fv-row">
+												<!--begin::Label-->
+												<label for="patientdetailDoctorName" class="required form-label">Doctor Name</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" id="patientdetailDoctorName" name="patientdetailDoctorName" class="form-control mb-2" placeholder="Doctor Name" value="" />
+												<!--end::Input-->
+												<!--begin::Description-->
+												<span class="errormsgdoctor" style="color:red"></span>
+												{% comment %} <div class="text-muted fs-7">A Doctor Name is required </div> {% endcomment %}
+												<!--end::Description-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">Patient Diseases Description</label>
+                                                <!--end::Label-->
+                                                <!--begin::Editor-->
+												<textarea name="patientdetailDiseasesDescription" id="patientdetailDiseasesDescription" class="form-control min-h-200px mb-2" placeholder="Patient Diseases Description" value=""></textarea>
+                                                <span class="errormsgdesc" style="color:red"></span>
+												<div class="text-muted fs-7">A Patient Diseases Description is required </div>
+												<!--end::Editor-->
+                                            </div>
+                                            <!--end::Input group-->
+																		
+										</div>
+										<!--end::Card header-->
+									</div>
+									<!--end::Contact Us options-->
+								</div>
+							</div>
+							<!--end::Tab pane-->
+							
+						</div>
+						<!--end::Tab content-->
+						<div class="d-flex justify-content-center">
+							<!--begin::Button-->
+							<a href="{% url 'patientdetailViewPage' %}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+							<!--end::Button-->
+							<!--begin::Button-->
+							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+								<span class="indicator-label">Next</span>
+								<span class="indicator-progress">Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+							</button>
+							
+							<!--end::Button-->
+						</div>
+					</div>
+					<!--end::Main column-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end::Main-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        function validateForm() {
+            const name = $('#patientdetailName').val().trim();
+            const mobile = $('#patientdetailMobileNo').val().trim();
+            const doctor = $('#patientdetailDoctorName').val().trim();
+
+            let isValid = true;
+
+            // Check patient name
+            if (name === '') {
+                $(".errormsgname").show().text("Patient Name Is Required");
+                isValid = false;
+            } else {
+                $(".errormsgname").hide();
+            }
+
+            // Check mobile number
+            if (mobile === '') {
+                $(".errormsgmobile").show().text("Patient Mobile No. Is Required");
+                isValid = false;
+            } else {
+                $(".errormsgmobile").hide();
+            }
+
+            // Check doctor name
+            if (doctor === '') {
+                $(".errormsgdoctor").show().text("Doctor Name Is Required");
+                isValid = false;
+            } else {
+                $(".errormsgdoctor").hide();
+            }
+
+            // Enable or disable the submit button based on the form validity
+            $('#kt_ecommerce_add_product_submit').prop('disabled', !isValid);
+        }
+
+        // Initial validation check
+        validateForm();
+
+        // Bind the input event to validate the form on each keypress
+        $('#patientdetailName, #patientdetailMobileNo, #patientdetailDoctorName').on('input', validateForm);
+    });
+</script>
+
+
+
+{% comment %} <script>
+	$(document).ready(function() {
+		
+		$(".errormsgname").hide()
+		$('#patientdetailName').on('input', function() {
+			if ($(this).val().trim() === '') {
+				$('#kt_ecommerce_add_product_submit').prop('disabled', true);
+				$(".errormsgname").show();
+				$(".errormsgname").text("Patient Name Is Required");
+			} else {
+				$('#kt_ecommerce_add_product_submit').prop('disabled', false);
+				$(".errormsgname").hide();
+
+			}
+		});
+
+		$(".errormsgmobile").hide()
+		$('#patientdetailMobileNo').on('input', function() {
+			if ($(this).val().trim() === '') {
+				$('#kt_ecommerce_add_product_submit').prop('disabled', true);
+				$(".errormsgmobile").show();
+				$(".errormsgmobile").text("Patient Mobile No. Is Required");
+			} else {
+				$('#kt_ecommerce_add_product_submit').prop('disabled', false);
+				$(".errormsgmobile").hide();
+
+			}
+		});
+
+		$(".errormsgdoctor").hide()
+		$('#patientdetailDoctorName').on('input', function() {
+			if ($(this).val().trim() === '') {
+				$('#kt_ecommerce_add_product_submit').prop('disabled', true);
+				$(".errormsgdoctor").show();
+				$(".errormsgdoctor").text("Patient Doctor Name Is Required");
+			} else {
+				$('#kt_ecommerce_add_product_submit').prop('disabled', false);
+				$(".errormsgdoctor").hide();
+
+			}
+		});
+
+		
+	});
+</script> {% endcomment %}
+
+
+
+
+{% endblock %}

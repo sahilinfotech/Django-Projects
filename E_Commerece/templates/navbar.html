@@ -1,0 +1,35 @@
+{% load static %}
+<!-- Start Navbar Area -->
+<div class="navbar-area">
+    <div class="comero-mobile-nav">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'frontend_static/assets/img/logo.png' %}" alt="logo"></a>
+        </div>
+    </div>
+
+    <div class="comero-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" href="index.html"><img src="{% static 'frontend_static/assets/img/logo.png' %}" alt="logo"></a>
+
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    {% if context.optionClass %}
+                    <div class="{{ context.optionClass }}">
+                        <div class="option-item"><a href="{% url 'productPage' %}">Product</a></div>
+
+                        <div class="option-item"><a href="{% url 'mywishlistsPage' %}">Add To Cart</a></div>
+
+                        {% if flag == 0 %}
+                        <div class="option-item"><a href="{% url 'loginPage' %}">Login</a></div>
+                        {% endif %}
+                        {% if flag == 1 %}
+                        <div class="option-item"><a href="{% url 'LogoutPage' %}">LogOut</a></div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- End Navbar Area -->

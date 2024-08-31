@@ -1,0 +1,81 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from themezhub.net/DreamTrip-live/DreamTrip/slider-home.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Apr 2024 17:34:58 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DreamTrip - Tour & Travel Booking Agency HTML Template | ThemezHub</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'frontend_static/assets/img/logo_dream.png' %}">
+
+  <!-- All Plugins -->
+  <link href="{% static 'frontend_static/assets/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/animation.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/dropzone.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/flatpickr.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/flickity.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/lightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/magnifypopup.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/select2.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/rangeSlider.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/prism.css' %}" rel="stylesheet">
+
+  <!-- Fontawesome & Bootstrap Icons CSS -->
+  <link href="{% static 'frontend_static/assets/css/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend_static/assets/css/fontawesome.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'frontend_static/assets/css/style.css' %}" rel="stylesheet">
+  {% block cssBlock %} {% endblock cssBlock %}
+</head>
+
+<body>
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div id="preloader">
+		<div class="preloader"><span></span><span></span></div>
+	</div>
+
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper">
+        {% include 'header.html' %}
+        <div class="clearfix"></div>
+        {% block bodyblock %}
+        {% endblock %}
+        {% include 'footer.html' %}
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="fa-solid fa-sort-up"></i></a>
+    </div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script src="{% static 'frontend_static/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/dropzone.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/flatpickr.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/flickity.pkgd.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/rangeslider.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/select2.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/counterup.min.js' %}"></script>
+    <script src="{% static 'frontend_static/assets/js/prism.js' %}"></script>
+	<script src="{% static 'frontend_static/assets/js/custom.js' %}"></script>
+    {% block jssBlock %} {% endblock jssBlock %}
+	<!-- ============================================================== -->
+	<!-- This page plugins -->
+	<!-- ============================================================== -->
+
+</body>
+
+
+<!-- Mirrored from themezhub.net/DreamTrip-live/DreamTrip/help-center.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Apr 2024 17:35:10 GMT -->
+</html>

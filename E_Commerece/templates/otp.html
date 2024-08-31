@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+        
+
+        <!-- Start Login Area -->
+        <section class="login-area ptb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3 col-md-12">
+                        <div class="login-content text-center">
+                            <div class="section-title">
+                                <h2><span class="dot"></span> OTP Verification</h2>
+                            </div>
+
+                            <form method="post" action="{% url 'otppage' %}">
+                                {% csrf_token %}
+                                {% for message in messages %}
+                                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                                    <strong>Message:</strong> {{ message }}
+                                </div>
+                                {% endfor %}
+                                <div class="form-group">
+                                    <label>Enter OTP</label>
+                                    <input type="text" class="form-control" name="userotp" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Verify OTP</button>
+                                <a href="{% url 'signUpPage' %}">SignUp</a>
+                            </form>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </section>
+        <!-- End Login Area -->
+
+
+{% endblock %}

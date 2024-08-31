@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+
+   <!-- Start Page Title Area -->
+   <div class="page-title-area">
+        <div class="container">
+            {% comment %} <ul>
+                <li><a href="{% url "customizeViewPage" %}">Home</a></li>
+                <li>Customize Edit</li>
+            </ul> {% endcomment %}
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+
+ <!-- Start Collections Area -->
+ <section class="products-collections-area ptb-60">
+    <div class="container">
+    <form id="customizeForm" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contain">
+                    <img src="{{customizevideoview}}" style="width: 150px; height: 150px;">
+                    <div class="filters">
+                        
+                        <div class="filter">
+                            <label for="contrast">Ambient Light</label>
+                            <div class="input">
+                                <input type="text" id="customize_id" name="customize_id" class="filter_input_width" value="{{ uploadvideo_featch.customize_id }}" hidden/>
+                                <input type="range" min="0" max="100" class="filter_input_width" id="AmbientLight" name="AmbientLight" value="{{uploadvideo_featch.customize_video_AmbientLight}}"
+                                    oninput="this.nextElementSibling.value = this.value">
+                                <output>{{uploadvideo_featch.customize_video_AmbientLight}}</output>
+                            </div>
+                        </div>
+
+                        <div class="filter">
+                            <label for="PointLight">Point Light</label>
+                            <div class="input">
+                                <input type="range" min="0" max="100" class="filter_input_width" id="PointLight" name="PointLight" value="{{uploadvideo_featch.customize_video_PointLight}}"
+                                    oninput="this.nextElementSibling.value = this.value">
+                                <output>{{uploadvideo_featch.customize_video_PointLight}}</output>
+                            </div>
+                        </div>
+
+                        <div class="filter">
+                            <label for="DirectionalLight">Directional Light</label>
+                            <div class="input">
+                                <input type="range" min="0" max="100" class="filter_input_width" id="DirectionalLight" name="DirectionalLight" value="{{uploadvideo_featch.customize_video_DirectionalLight}}"
+                                    oninput="this.nextElementSibling.value = this.value">
+                                <output>{{uploadvideo_featch.customize_video_DirectionalLight}}</output>
+                            </div>
+                        </div>
+
+                        <div class="filter">
+                            <label for="SpotLight">Spot Light</label>
+                            <div class="input">
+                                <input type="range" min="0" max="100" class="filter_input_width" id="SpotLight" name="SpotLight" value="{{uploadvideo_featch.customize_video_SpotLight}}"
+                                    oninput="this.nextElementSibling.value = this.value">
+                                <output>{{uploadvideo_featch.customize_video_SpotLight}}</output>
+                            </div>
+                        </div>
+
+                        <div class="filter">
+                            <label for="SpotLight">Dimensions</label>
+                            <div class="input">
+                                <input type="range" min="0" max="10" class="filter_input_width" id="Dimension" name="Dimension" value="{{uploadvideo_featch.customize_video_Dimension}}"
+                                oninput="updateDimensionValue(this.value)">
+                                <output>{{uploadvideo_featch.customize_video_Dimension}}</output>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:30px">
+                            <button class="resetBtn btn btn-dark rounded">Reset</button>
+                            <button id="capture-btn" class="btn btn-dark rounded"> Video Capture </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <br><br><br>
+                <canvas class="webgl"></canvas>
+                <div id="timer" style="display:none; color: #50727B; font-weight: 600; font-size: large">Video Download in 
+                    <span id="timer-display" style="color: #344955; font-size: larger"></span>
+                </div>
+
+                <div style="display:flex; gap:30px"> 
+                    <button id="download-btn" style="display:none;"  class="btn btn-dark rounded">Download Video</button>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    </div>
+</section>
+<!-- End Collections Area -->
+
+
+
+
+{% endblock %}
+
+{% block jsBlock %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+
+
+<script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+
+<script>
+
+    const canvasContainer = document.querySelector('.col-md-6');
+    const canvas = document.querySelector('.webgl');
+    const resetBtnEl = document.querySelector(".resetBtn");
+
+    const canvasWidth = canvasContainer.clientWidth;
+    const canvasHeight = canvasContainer.clientHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    const scene = new THREE.Scene();
+    const loader = new THREE.GLTFLoader();
+    let model;
+
+    const AmbientLightId = document.getElementById("AmbientLight");
+    const PointLightId = document.getElementById("PointLight");
+    const DirectionalLightId = document.getElementById("DirectionalLight");
+    const SpotLightId = document.getElementById("SpotLight");
+    const DimensionId = document.getElementById("Dimension");
+
+
+    let amblight = 2;
+    let pointlightIntensity = 0;
+    let directionalLightIntensity = 2;
+    let spotLightIntensity = 2;
+    let DimensionVal = 5;
+
+
+    let ambientLight, pointLight, directionalLight, spotLight;
+
+    AmbientLightId.addEventListener("input", function () {
+        amblight = parseInt(this.value);
+        updateAmbientLight();
+    });
+
+    PointLightId.addEventListener("input", function () {
+        pointlightIntensity = parseInt(this.value);
+        updatePointLightIntensity();
+    });
+
+    DirectionalLightId.addEventListener("input", function () {
+        directionalLightIntensity = parseInt(this.value);
+        updateDirectionalLightIntensity();
+    });
+
+    SpotLightId.addEventListener("input", function () {
+        spotLightIntensity = parseInt(this.value);
+        updateSpotlightIntensity();
+    });
+
+    resetBtnEl.addEventListener('click', function () {
+        
+        document.querySelectorAll(".filter input[type=range]").forEach(function (input) {
+            const defaultValue = input.getAttribute('value');
+            input.value = defaultValue;
+            input.nextElementSibling.textContent = defaultValue;
+        });
+    
+        amblight = 2;
+        pointlightIntensity = 0;
+        directionalLightIntensity = 2;
+        spotLightIntensity = 2;
+        DimensionVal = 5;
+    
+        updateAmbientLight();
+        updatePointLightIntensity();
+        updateDirectionalLightIntensity();
+        updateSpotlightIntensity();
+    });
+    
+    
+
+    function updateDimensionValue(value) {
+        DimensionVal = parseInt(value);
+        updateTextureRepeat();
+    }
+
+    function updateTextureRepeat() {
+        if (model) {
+            model.traverse((child) => {
+                if (child.isMesh && child.material instanceof THREE.MeshStandardMaterial) {
+                    child.material.map.repeat.set(DimensionVal, DimensionVal);
+                    child.material.map.needsUpdate = true;
+                }
+            });
+        }
+    }
+
+        
+    loader.load(
+        "{% static 'frontend_static/assets/model/shirt_patten.glb' %}",
+        (glb) => {
+            model = glb.scene;
+            model.scale.set(1, 1, 1);
+
+            const textureLoader = new THREE.TextureLoader();
+            const textureURL = '{{customizevideoview}}';
+            const texture = textureLoader.load(textureURL, (loadedTexture) => {
+                loadedTexture.minFilter = THREE.LinearFilter;
+                loadedTexture.magFilter = THREE.LinearFilter;
+                loadedTexture.generateMipmaps = false;
+                loadedTexture.wrapS = loadedTexture.wrapT = THREE.RepeatWrapping;
+                loadedTexture.repeat.set(DimensionVal, DimensionVal);
+            });
+
+            model.traverse((child) => {
+                if (child.isMesh && child.material instanceof THREE.MeshStandardMaterial) {
+                    child.material.map = texture;
+                    child.material.needsUpdate = true;
+                    child.material.side = THREE.DoubleSide;
+                }
+            });
+
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+
+            scene.add(model);
+
+            const boundingBox = new THREE.Box3().setFromObject(model);
+            const boundingBoxCenter = boundingBox.getCenter(new THREE.Vector3());
+            const boundingBoxSize = boundingBox.getSize(new THREE.Vector3());
+            const maxDimension = Math.max(boundingBoxSize.x, boundingBoxSize.y, boundingBoxSize.z);
+
+            camera.position.copy(boundingBoxCenter);
+            camera.position.z += maxDimension * 2;
+
+            controls.target.copy(boundingBoxCenter);
+            controls.update();
+        },
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        },
+        (error) => {
+            console.error('Error loading 3D model', error);
+        }
+    );
+
+
+    // Ambient Light
+
+    function updateAmbientLight() {
+        if (ambientLight) {
+            scene.remove(ambientLight);
+        }
+        ambientLight = new THREE.AmbientLight(0xffffff, amblight); 
+        scene.add(ambientLight);
+    }
+    
+    updateAmbientLight();
+
+    // Point Light
+
+    function updatePointLightIntensity() {
+        if (pointLight) {
+            scene.remove(pointLight);
+        }
+        pointLight = new THREE.PointLight(0xffffff, pointlightIntensity); // Convert to 0-1 range
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+    }
+
+    updatePointLightIntensity();
+
+    // Directional Light
+
+    function updateDirectionalLightIntensity() {
+        if (directionalLight) {
+            scene.remove(directionalLight);
+        }
+        directionalLight = new THREE.DirectionalLight(0xffffff, directionalLightIntensity); // Convert to 0-1 range
+        directionalLight.position.set(3, 3, 6);
+        scene.add(directionalLight);
+    }
+
+    updateDirectionalLightIntensity();
+
+    // Spotlight
+    
+    function updateSpotlightIntensity() {
+        if (spotLight) {
+            scene.remove(spotLight);
+        }
+        spotLight = new THREE.SpotLight(0xffffff, spotLightIntensity); // Convert to 0-1 range
+        spotLight.position.set(0, 10, 10);
+        scene.add(spotLight);
+    }
+
+    updateSpotlightIntensity();
+
+
+    const sizes = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+    };
+
+    const camera = new THREE.PerspectiveCamera(40, canvasWidth / canvasHeight, 1, 100);
+    camera.position.x = 5;
+    camera.position.y = 5;
+    camera.position.z = 5;
+
+    scene.add(camera);
+
+    const renderer = new THREE.WebGL1Renderer({ canvas });
+    renderer.setSize(canvasWidth, canvasHeight);
+    renderer.setPixelRatio(2);
+    renderer.setClearColor(new THREE.Color('#ffffff'));
+    renderer.render(scene, camera);
+
+    const controls = new THREE.OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.enablePan = false;
+    controls.enableZoom = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 5;
+
+    window.addEventListener('resize', () => {
+        const canvasWidth = canvasContainer.clientWidth;
+        const canvasHeight = canvasContainer.clientHeight;
+        camera.aspect = canvasWidth / canvasHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(canvasWidth, canvasHeight);
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+
+    function captureVideo(duration) {
+        const canvas = document.querySelector('.webgl');
+        const stream = canvas.captureStream(); // Capture canvas as stream
+        const mediaRecorder = new MediaRecorder(stream);
+        const chunks = [];
+    
+        mediaRecorder.ondataavailable = function(event) {
+            chunks.push(event.data);
+        };
+    
+        mediaRecorder.onstop = function() {
+            const blob = new Blob(chunks, { 'type' : 'video/webm' });
+    
+            // Send the captured video to the server
+            sendVideoToServer(blob);
+            document.getElementById('timer').style.display = 'none';
+            // document.getElementById('download-btn').style.display = 'block';
+        };
+    
+        mediaRecorder.start();
+    
+        // Countdown timer
+        let timeLeft = duration / 1000; // Convert milliseconds to seconds
+        const timerDisplay = document.getElementById('timer-display');
+        const timerInterval = setInterval(function() {
+            timeLeft--;
+            timerDisplay.textContent = timeLeft + ' seconds.';
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                mediaRecorder.stop();
+            }
+        }, 1000);
+    }
+
+
+    
+    
+    // Event listener for button click
+
+    document.getElementById('customizeForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        const formData = new FormData(this); // Get form data
+    
+        fetch("{% url 'uploadVideoEditPage' %}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Data updated successfully');
+                // Handle success, e.g., show a success message
+            } else {
+                console.error('Failed to update data');
+                // Handle failure, e.g., show an error message
+            }
+        })
+        .then(data => {
+            console.log("Response data: ", data);
+            if (data.status === 'success') {
+
+                const videoUrl = data.download_link;
+                var downloadLink = document.createElement("a");
+                downloadLink.href = videoUrl;
+                downloadLink.download = "pattern.webm";
+                downloadLink.click();
+                window.location.href = "/CustomizeView";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error, e.g., show an error message
+        });
+    });
+    // Event listener for button click
+    document.getElementById('capture-btn').addEventListener('click', function() {
+
+        document.getElementById('timer').style.display = 'block';
+        captureVideo(10000); 
+
+    });
+    
+
+</script>
+
+
+{% endblock %}
